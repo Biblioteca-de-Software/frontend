@@ -1,0 +1,1 @@
+var e={production:!0,serverBaseUrl:"https://keepitfresh.free.beeceptor.com/v1",serverBaseUrlProducts:"/products",ordersEndpointPath:"/orders",dishesEndpointPath:"/dishes",serverBaseUrlNotification:"/notifications"};export{e as a};
