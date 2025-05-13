@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import {MainComponent} from './public/components/main/main.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [
+    MainComponent
+  ],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
