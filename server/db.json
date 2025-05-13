@@ -1,4 +1,5 @@
-[
+{
+  "reports": [
   {
     "id": "rep-001",
     "title": "Report",
@@ -39,4 +40,5 @@
     "date": "2025-05-01",
     "status": "Approved"
   }
-]
+ ]
+}
