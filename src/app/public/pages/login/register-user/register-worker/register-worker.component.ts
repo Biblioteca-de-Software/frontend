@@ -4,15 +4,14 @@ import {Router, RouterLink} from '@angular/router';
 import {MatButton} from '@angular/material/button';
 import {MatInput, MatLabel} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
-import {MatToolbar} from '@angular/material/toolbar';
 import {MatCard, MatCardContent} from '@angular/material/card';
 import {MatFormField} from '@angular/material/form-field';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register-worker',
   templateUrl: './register-worker.component.html',
   imports: [
-    MatToolbar,
     MatCard,
     MatCardContent,
     MatButton,
@@ -28,7 +27,9 @@ import {MatFormField} from '@angular/material/form-field';
     MatLabel,
     MatInput,
     FormsModule,
+    TranslatePipe,
   ],
+  standalone: true,
   styleUrls: ['./register-worker.component.css']
 })
 export class RegisterWorkerComponent {

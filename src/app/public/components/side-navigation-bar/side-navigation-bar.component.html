@@ -1,6 +1,6 @@
 <div class="sidenav-container">
   <div class="sidenav-header">
-    <div class="logo"> KeepItFresh </div>
+    <div class="logo">KeepItFresh</div>
   </div>
 
   <mat-nav-list>
@@ -9,8 +9,8 @@
        [routerLink]="item.route"
        routerLinkActive="active-link"
        class="nav-item">
-      <mat-icon class="nav-icon">{{item.icon}}</mat-icon>
-      <span>{{ item.label }}</span>
+      <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+      <span>{{ item.label | translate }}</span>
     </a>
   </mat-nav-list>
 </div>

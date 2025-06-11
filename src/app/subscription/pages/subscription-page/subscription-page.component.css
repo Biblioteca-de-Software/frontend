@@ -1,0 +1,19 @@
+.subscription-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.subscription-page .title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.subscription-page .description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}

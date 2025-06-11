@@ -1,17 +1,18 @@
 <div class="notification-container">
   <main class="content">
-    <h1>Alerts</h1>
+    <h1>{{ 'alerts.TITLE' | translate }}</h1>
     <table>
       <thead>
       <tr>
-        <th>Title</th>
-        <th>Date</th>
+        <th>{{ 'alerts.COLUMN_TITLE' | translate }}</th>
+        <th>{{ 'alerts.COLUMN_DATE' | translate }}</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let notification of notifications" (click)="showPopup(notification)">
         <td>{{ notification.title }}</td>
         <td>{{ notification.date }}</td>
+      </tr>
       </tbody>
     </table>
   </main>

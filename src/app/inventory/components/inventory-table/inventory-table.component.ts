@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-inventory-table',
@@ -20,6 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    TranslatePipe,
   ],
   templateUrl: './inventory-table.component.html',
   standalone: true,

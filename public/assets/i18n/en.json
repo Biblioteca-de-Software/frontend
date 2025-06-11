@@ -1,0 +1,183 @@
+{
+  "TOOLBAR": {
+    "SIGN_IN": "Sign In",
+    "SIGN_UP": "Sign Up"
+  },
+  "SIDENAV":{
+"ORDERS": "Orders",
+  "HOME": "Home",
+    "INVENTORY": "Inventory",
+    "PROFILE": "Profile",
+    "NOTIFICATIONS": "Notifications",
+    "DASHBOARD": "Dashboard",
+    "REPORT": "Report",
+    "SUBSCRIPTION": "Subscriptions"
+},
+  "login-owner": {
+    "WORKER": "Worker",
+    "OWNER": "Owner",
+    "SIGN IN": "Sign in as owner",
+    "FIRST_TIME": "First time on Keepltfresh?",
+    "CREATE_ACCOUNT": "Create your account now!",
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "LOGIN_OWNER": "Log in as Owner"
+  },
+
+  "login-worker": {
+    "WORKER": "Worker",
+    "OWNER": "Owner",
+    "SIGN_IN": "Sign In",
+    "FIRST_TIME": "First time on Keepltfresh?",
+    "CREATE_ACCOUNT": "Create your account now!",
+    "EMAIL_PLACEHOLDER": "Email address",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "LOGIN_WORKER": "Log in as Worker"
+  },
+
+  "recover-owner": {
+    "RECOVER_PASSWORD": "Recover Password",
+    "OWNER": "Owner",
+    "INSTRUCTIONS": "If you forgot your password, you can reset it using the email you used to create your account.",
+    "EMAIL_LABEL": "Email Address",
+    "EMAIL_PLACEHOLDER": "Enter your email address",
+    "SEND_CODE": "Send Code",
+    "CODE_LABEL": "Enter the Code",
+    "CODE_PLACEHOLDER": "Code",
+    "RESET_PASSWORD": "Reset Password"
+  },
+
+  "reset-worker": {
+    "RESET_PASSWORD": "Reset Password",
+    "WORKER": "Worker",
+    "INSTRUCTIONS": "If you forgot your password, you can reset it using the email you used to create your account.",
+    "EMAIL_LABEL": "Email Address",
+    "EMAIL_PLACEHOLDER": "Enter your email address",
+    "SEND_CODE": "Send Code",
+    "CODE_LABEL": "Enter the Code",
+    "CODE_PLACEHOLDER": "Code",
+    "RESET_BUTTON": "Reset Password"
+  },
+
+
+  "register-owner": {
+    "WORKER": "Worker",
+    "DUENO": "Owner",
+    "REGISTER": "Register",
+    "FIRST_NAME": "First Name",
+    "FIRST_NAME_PLACEHOLDER": "Enter your first name",
+    "LAST_NAME": "Last Name",
+    "LAST_NAME_PLACEHOLDER": "Enter your last name",
+    "BIRTH_DATE": "Date of Birth",
+    "PHONE": "Phone",
+    "PHONE_PLACEHOLDER": "Enter your phone number",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "PASSWORD": "Password",
+    "PASSWORD_PLACEHOLDER": "Create a password",
+    "REGISTER_AS_DUENO": "Register as Owner"
+  },
+
+
+  "register-worker": {
+    "WORKER": "Worker",
+    "DUENO": "Owner",
+    "REGISTER": "Register",
+    "FIRST_NAME": "First Name",
+    "FIRST_NAME_PLACEHOLDER": "Enter your first name",
+    "LAST_NAME": "Last Name",
+    "LAST_NAME_PLACEHOLDER": "Enter your last name",
+    "BIRTH_DATE": "Date of Birth",
+    "PHONE": "Phone",
+    "PHONE_PLACEHOLDER": "Enter your phone number",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "PASSWORD": "Password",
+    "PASSWORD_PLACEHOLDER": "Create a password",
+    "REGISTER_AS_WORKER": "Register as Worker"
+  },
+
+
+
+  "inventory": {
+    "TITLE": "Inventory",
+    "ID": "ID",
+    "INVENTORY_ID": "Inventory ID",
+    "NAME": "Name",
+    "EXPIRATION_DATE": "Expiration Date",
+    "STOCK": "Stock",
+    "MEASUREMENT_UNIT": "Measurement Unit",
+    "PRICE": "Price",
+    "ADD_PRODUCT_TITLE": "Add a new product",
+    "ADD_PRODUCT_BUTTON": "Add product"
+  },
+
+  "report": {
+    "ID": "ID",
+    "DATE": "Date",
+    "DETAILS": "Details",
+    "TITLE": "Title",
+    "ADD": "Add Report"
+  },
+
+
+  "dashboard": {
+    "PROFITS": "Restaurant's Profits: Amount of orders sold per day.",
+    "LOSSES": "Restaurant's Loss: Total amount of products bought for the inventory.",
+    "ORDERS_BAR": "Quantity of dishes sold per day in a bar graphic.",
+    "ORDERS_PIE": "Quantity of dishes sold per day in a pie graphic."
+  },
+
+  "orderForm": {
+    "TITLE": "Create New Order",
+    "TABLE_NUMBER": "Table Number",
+    "PLACEHOLDER_TABLE": "E.g., 5",
+    "ERROR_TABLE_REQUIRED": "Table number is required.",
+    "ERROR_TABLE_MIN": "Table number must be at least 1.",
+    "DISH": "Dish",
+    "SELECT_DISH": "Select a dish",
+    "ERROR_DISH_REQUIRED": "A dish must be selected.",
+    "QUANTITY": "Quantity",
+    "ERROR_QUANTITY_REQUIRED": "Quantity is required.",
+    "ERROR_QUANTITY_MIN": "Minimum 1.",
+    "REMOVE": "Remove",
+    "ADD_DISH": "+ Add a dish",
+    "TOTAL": "Estimated Total:",
+    "SAVE_ORDER": "Save Order"
+  },
+
+
+
+  "alerts": {
+    "TITLE": "Alerts",
+    "COLUMN_TITLE": "Title",
+    "COLUMN_DATE": "Date"
+  },
+
+  "subscriptions": {
+    "PAGE_TITLE": "Subscribe to KeepItFresh",
+    "PAGE_DESCRIPTION": "Explore our plans and choose the one that fits your restaurant.",
+    "TITLE": "Choose Your Plan",
+    "SUBTITLE": "Select the plan that’s right for you.",
+    "STARTER_NAME": "Starter",
+    "STARTER_DESCRIPTION": "Designed for small and growing businesses.",
+    "PRO_NAME": "Pro (1-Month)",
+    "PRO_YEARLY_NAME": "Pro (12-Month)",
+    "PRO_DESCRIPTION": "Complete solution for your restaurant.",
+    "FEATURES": {
+      "LIMITED_PRODUCTS": "Up to 100 products in inventory",
+      "BASIC_ALERTS": "Basic expiration alerts",
+      "SEARCH": "Search by name and category",
+      "EXPORT": "Export reports in PDF",
+      "UNLIMITED_PRODUCTS": "Unlimited products",
+      "CUSTOM_ROLES": "Unlimited users with custom roles",
+      "EMAIL_REPORTS": "Automated email reports",
+      "TRAINING": "Personalized training",
+      "SUPPORT": "Dedicated technical support"
+    },
+    "SUBSCRIBE": "Subscribe"
+  }
+
+
+
+}

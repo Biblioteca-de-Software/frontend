@@ -1,15 +1,15 @@
-<h2>Inventory</h2>
+<h2>{{ 'inventory.TITLE' | translate }}</h2>
 
 <table class="product-table">
   <thead>
   <tr>
-    <th>ID</th>
-    <th>Inventory</th>
-    <th>Name</th>
-    <th>Expiration Date</th>
-    <th>Stock</th>
-    <th>Measurement Unit</th>
-    <th>Price</th>
+    <th>{{ 'inventory.ID' | translate }}</th>
+    <th>{{ 'inventory.INVENTORY_ID' | translate }}</th>
+    <th>{{ 'inventory.NAME' | translate }}</th>
+    <th>{{ 'inventory.EXPIRATION_DATE' | translate }}</th>
+    <th>{{ 'inventory.STOCK' | translate }}</th>
+    <th>{{ 'inventory.MEASUREMENT_UNIT' | translate }}</th>
+    <th>{{ 'inventory.PRICE' | translate }}</th>
   </tr>
   </thead>
   <tbody>
@@ -25,11 +25,10 @@
   </tbody>
 </table>
 
-
 <mat-card class="product-form-card">
   <mat-card-header>
     <mat-card-title>
-      <h2>Add a new product</h2>
+      <h2>{{ 'inventory.ADD_PRODUCT_TITLE' | translate }}</h2>
     </mat-card-title>
   </mat-card-header>
 
@@ -37,42 +36,40 @@
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
 
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Inventory ID</mat-label>
+        <mat-label>{{ 'inventory.INVENTORY_ID' | translate }}</mat-label>
         <input matInput type="number" formControlName="inventory_id">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Name</mat-label>
+        <mat-label>{{ 'inventory.NAME' | translate }}</mat-label>
         <input matInput type="text" formControlName="name">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Expiration Date</mat-label>
+        <mat-label>{{ 'inventory.EXPIRATION_DATE' | translate }}</mat-label>
         <input matInput type="date" formControlName="expiration_date">
       </mat-form-field>
 
-
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Stock</mat-label>
+        <mat-label>{{ 'inventory.STOCK' | translate }}</mat-label>
         <input matInput type="number" formControlName="stock">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Measurement Unit</mat-label>
+        <mat-label>{{ 'inventory.MEASUREMENT_UNIT' | translate }}</mat-label>
         <input matInput type="text" formControlName="measurement_unit">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Price</mat-label>
+        <mat-label>{{ 'inventory.PRICE' | translate }}</mat-label>
         <input matInput type="number" step="0.01" formControlName="price">
       </mat-form-field>
 
       <div class="actions">
         <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid" class="orange-btn">
-          Add product
+          {{ 'inventory.ADD_PRODUCT_BUTTON' | translate }}
         </button>
       </div>
     </form>
   </mat-card-content>
 </mat-card>
-

@@ -1,0 +1,15 @@
+<ng-container *ngIf="currentLang === 'en' || currentLang === 'es'">
+  <button mat-button [matMenuTriggerFor]="langMenu">
+    {{ currentLang === 'es' ? 'Español' : 'English' }}
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+
+  <mat-menu #langMenu="matMenu">
+    <button mat-menu-item
+            *ngFor="let language of languages"
+            (click)="useLanguage(language)">
+      <mat-icon *ngIf="language === currentLang">check</mat-icon>
+      {{ language.toUpperCase() }}
+    </button>
+  </mat-menu>
+</ng-container>

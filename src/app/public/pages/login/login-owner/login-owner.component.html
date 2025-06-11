@@ -1,24 +1,31 @@
-<script src="login-owner.component.spec.ts"></script>
 <div class="content-primary">
-  <mat-toolbar style="color: #FF7A00;background-color: #14131B">
-    <img src="https://i.postimg.cc/ncFdhcSS/logo-removebg-preview.png" width="100px">
-    <div class="mat-spacer"></div>
-  </mat-toolbar>
-
   <br><br>
   <mat-card class="contenedor">
     <mat-card-content>
       <div class="content-2">
         <section>
           <div class="example-button-row section-button">
-            <button mat-button id="btnn" [routerLink]="['/login-worker']">Worker</button>
-            <button mat-button id="btnn" [routerLink]="['/login-owner']" style="margin-left: 1em">Owner</button>
+            <button mat-button id="btnn" routerLink="/pages/login-worker">
+              {{ 'login-owner.WORKER' | translate }}
+            </button>
+            <button mat-button id="btnn" routerLink="/pages/login-owner" style="margin-left: 1em">
+              {{ 'login-owner.OWNER' | translate }}
+            </button>
           </div>
         </section>
         <br><br>
-        <mat-label style="text-align: center;font-size: 30px;color: #14131B"><b>Sign In</b></mat-label>
+
+        <mat-label style="text-align: center;font-size: 30px;color: #14131B">
+          <b>{{ 'login-owner.SIGN IN' | translate }}</b>
+        </mat-label>
         <br>
-        <mat-label style="text-align: center;font-size: 15px;color: #14131B">¿First time on Keepltfresh? <a [routerLink]="['/register-owner']" style="color: #14131B;text-decoration: none"><b>Create your account now!</b></a></mat-label>
+
+        <mat-label style="text-align: center;font-size: 15px;color: #14131B">
+          {{ 'login-owner.FIRST_TIME' | translate }}
+          <a routerLink="/pages/register-owner" style="color: #14131B;text-decoration: none">
+            <b>{{ 'login-owner.CREATE_ACCOUNT' | translate }}</b>
+          </a>
+        </mat-label>
         <br>
 
         <mat-form-field>
@@ -27,16 +34,19 @@
         <mat-form-field>
           <input matInput [(ngModel)]="user.password" name="password" type="password" placeholder="Password" class="input">
         </mat-form-field>
+
         <mat-label style="color: #14131B; justify-content: right; text-align: right;">
-          <a mat-button [routerLink]="['/recover-password-owner']">
-            <b style="font-family: 'Poppins', sans-serif">Forgot your password?</b>
+          <a mat-button routerLink="/pages/recover-password-owner">
+            <b style="font-family: 'Poppins', sans-serif">
+              {{ 'login-owner.FORGOT_PASSWORD' | translate }}
+            </b>
           </a>
         </mat-label>
         <br>
-        <button mat-button style="color: white; background-color: #FF7A00" type="submit" (click)="onSubmit()">
-          Log in as Owner
-        </button>
 
+        <button mat-button style="color: white; background-color: #FF7A00" type="submit" (click)="onSubmit()">
+          {{ 'login-owner.LOGIN_OWNER' | translate }}
+        </button>
       </div>
     </mat-card-content>
   </mat-card>

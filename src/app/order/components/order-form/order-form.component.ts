@@ -12,6 +12,7 @@ import {DishService} from '../../services/dish.service';
 import {OrderService} from '../../services/order.service';
 import {OrderDishService} from '../../services/order-dish.service';
 import {OrderDish} from '../../models/order-dish.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-order-form',
@@ -27,6 +28,8 @@ import {OrderDish} from '../../models/order-dish.entity';
     NgForOf,
     NgIf,
     DecimalPipe,
+    TranslatePipe,
+
   ],
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.css'

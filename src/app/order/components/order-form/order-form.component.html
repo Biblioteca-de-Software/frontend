@@ -1,7 +1,7 @@
 <mat-card class="order-form">
   <mat-card-header>
     <mat-card-title>
-      <h2>Create New Order</h2>
+      <h2>{{ 'orderForm.TITLE' | translate }}</h2>
     </mat-card-title>
   </mat-card-header>
 
@@ -11,13 +11,13 @@
       <!-- Número de Mesa -->
       <div class="form-group">
         <mat-form-field appearance="fill" class="w-100">
-          <mat-label>Table Number</mat-label>
-          <input matInput type="number" formControlName="tableNumber" placeholder="Ej: 5" />
+          <mat-label>{{ 'orderForm.TABLE_NUMBER' | translate }}</mat-label>
+          <input matInput type="number" formControlName="tableNumber" placeholder="{{ 'orderForm.PLACEHOLDER_TABLE' | translate }}" />
           <mat-error *ngIf="form.get('tableNumber')?.hasError('required')">
-            Table number is required.
+            {{ 'orderForm.ERROR_TABLE_REQUIRED' | translate }}
           </mat-error>
           <mat-error *ngIf="form.get('tableNumber')?.hasError('min')">
-            Table number must be at least 1.
+            {{ 'orderForm.ERROR_TABLE_MIN' | translate }}
           </mat-error>
         </mat-form-field>
       </div>
@@ -28,33 +28,33 @@
 
           <!-- Plato -->
           <mat-form-field appearance="fill" class="w-100">
-            <mat-label>Dish</mat-label>
+            <mat-label>{{ 'orderForm.DISH' | translate }}</mat-label>
             <mat-select formControlName="dishId">
-              <mat-option [value]="null" disabled>Select a dish</mat-option>
+              <mat-option [value]="null" disabled>{{ 'orderForm.SELECT_DISH' | translate }}</mat-option>
               <mat-option *ngFor="let dish of dishes" [value]="dish.id">
                 {{ dish.name }} (S/ {{ dish.price }})
               </mat-option>
             </mat-select>
             <mat-error *ngIf="item.get('dishId')?.hasError('required')">
-              A dish must be select.
+              {{ 'orderForm.ERROR_DISH_REQUIRED' | translate }}
             </mat-error>
           </mat-form-field>
 
           <!-- Cantidad -->
           <mat-form-field appearance="fill" class="w-100">
-            <mat-label>Quantity</mat-label>
+            <mat-label>{{ 'orderForm.QUANTITY' | translate }}</mat-label>
             <input matInput type="number" formControlName="quantity" min="1" />
             <mat-error *ngIf="item.get('quantity')?.hasError('required')">
-              Quantity is required.
+              {{ 'orderForm.ERROR_QUANTITY_REQUIRED' | translate }}
             </mat-error>
             <mat-error *ngIf="item.get('quantity')?.hasError('min')">
-              Minimum 1.
+              {{ 'orderForm.ERROR_QUANTITY_MIN' | translate }}
             </mat-error>
           </mat-form-field>
 
           <!-- Eliminar -->
           <button mat-raised-button color="warn" type="button" class="remove-btn" (click)="removeDish(i)" *ngIf="items.length > 1">
-            Remove
+            {{ 'orderForm.REMOVE' | translate }}
           </button>
 
         </div>
@@ -62,17 +62,17 @@
 
       <!-- Botón agregar plato -->
       <button mat-raised-button type="button" class="add-btn" (click)="addDish()">
-        + Add a dish
+        {{ 'orderForm.ADD_DISH' | translate }}
       </button>
 
       <!-- Total -->
       <div class="form-group">
-        <strong>Estimated Total: S/ {{ calculateTotal() | number:'1.2-2' }}</strong>
+        <strong>{{ 'orderForm.TOTAL' | translate }} S/ {{ calculateTotal() | number:'1.2-2' }}</strong>
       </div>
 
       <!-- Botón guardar -->
       <button mat-raised-button type="submit" class="submit-btn" [disabled]="form.invalid || items.length === 0">
-        Save Order
+        {{ 'orderForm.SAVE_ORDER' | translate }}
       </button>
 
     </form>

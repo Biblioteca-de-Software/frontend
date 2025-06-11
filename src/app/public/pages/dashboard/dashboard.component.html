@@ -1,21 +1,21 @@
 <div class="dashboard-container">
   <div class="profits">
-    <p> Restaurant's Profits: Amount of orders sold per day. </p>
-    <app-profits-analytics/>
+    <p>{{ 'dashboard.PROFITS' | translate }}</p>
+    <app-profits-analytics></app-profits-analytics>
   </div>
 
   <div class="losses">
-    <p> Restaurant's Loss: Total amount of products bought for the inventory. </p>
-    <app-loss-analytics/>
+    <p>{{ 'dashboard.LOSSES' | translate }}</p>
+    <app-loss-analytics></app-loss-analytics>
   </div>
 
   <div class="orders">
-    <p> Quantity of dishes sold per day in a bar graphic. </p>
-    <app-orders-analytics/>
+    <p>{{ 'dashboard.ORDERS_BAR' | translate }}</p>
+    <app-orders-analytics></app-orders-analytics>
   </div>
 
   <div class="pie">
-    <p> Quantity of dishes sold per day in a pie graphic.</p>
-    <app-order-pie-analytics/>
+    <p>{{ 'dashboard.ORDERS_PIE' | translate }}</p>
+    <app-order-pie-analytics></app-order-pie-analytics>
   </div>
 </div>

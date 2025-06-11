@@ -4,6 +4,7 @@ import {RestoreWorkerComponent} from './public/pages/login/restore-worker/restor
 import {RestoreOwnerComponent} from './public/pages/login/restore-owner/restore-owner.component';
 import {ValidationComponent} from './public/pages/login/validation/validation.component';
 import {DashboardComponent} from './public/pages/dashboard/dashboard.component';
+import {HomeComponent} from './public/pages/home/home.component';
 
 const PageNotFoundComponent = ()=> import('./public/pages/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent);
 const OrdersComponent = ()=> import('./order/pages/orders/orders.component').then(m => m.OrdersComponent);
@@ -16,7 +17,14 @@ const RecoverPasswordOwnerComponent = ()=> import('./public/pages/login/recover-
 const RecoverPasswordWorkerComponent = ()=> import('./public/pages/login/recover-password-worker/recover-password-worker.component').then(m => m.RecoverPasswordWorkerComponent);
 const NotificationsComponent = () => import('./notification/components/notification-list/notification-list.component').then(m => m.NotificationListComponent);
 
+import {SummaryCardsComponent} from './reports/components/summary-cards/summary-cards.component';
+import {SubscriptionPageComponent} from './subscription/pages/subscription-page/subscription-page.component';
+import {SubscribeSuccessComponent} from './subscription/pages/subscribe-success/subscribe-success.component';
+
+
+
 export const routes: Routes = [
+  {path : 'pages/home',component : HomeComponent},
   { path: 'pages/dashboard', component: DashboardComponent },
   { path: 'pages/notifications', loadComponent: NotificationsComponent},
   { path: 'pages/orders', loadComponent: OrdersComponent},
@@ -30,7 +38,9 @@ export const routes: Routes = [
   {path: 'pages/restore-owner',component:RestoreOwnerComponent},
   {path: 'pages/restore-worker',component:RestoreWorkerComponent},
   {path: 'pages/validation',component:ValidationComponent},
-
+  {path : 'pages/report',component:SummaryCardsComponent},
+  {path: 'pages/subscription', component: SubscriptionPageComponent},
+  {path: 'pages/subscription/success', component: SubscribeSuccessComponent},
   { path: '', redirectTo: 'pages/dashboard', pathMatch: 'full' },
   { path: '**', loadComponent: PageNotFoundComponent }
 ];

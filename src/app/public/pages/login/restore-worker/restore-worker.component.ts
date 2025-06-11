@@ -3,7 +3,6 @@ import {MatInput, MatLabel} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
-import {MatToolbar} from '@angular/material/toolbar';
 import {MatCard, MatCardContent} from '@angular/material/card';
 import {MatFormField} from '@angular/material/form-field';
 
@@ -11,7 +10,6 @@ import {MatFormField} from '@angular/material/form-field';
   selector: 'app-restore-worker',
   templateUrl: './restore-worker.component.html',
   imports: [
-    MatToolbar,
     MatCard,
     MatCardContent,
     MatButton,

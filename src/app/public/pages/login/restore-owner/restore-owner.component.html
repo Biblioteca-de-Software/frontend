@@ -1,8 +1,4 @@
 <div class="content-primary">
-  <mat-toolbar style="color: #FF7A00;background-color: #14131B">
-    <img src="https://i.postimg.cc/ncFdhcSS/logo-removebg-preview.png" width="100px">
-    <div class="mat-spacer"></div>
-  </mat-toolbar>
 
   <br><br>
   <mat-card class="contenedor">
@@ -10,25 +6,27 @@
       <div class="content-2">
 
         <br>
-        <mat-label style="text-align: center;font-size: 30px;color: #14131B;"><b>Reset Password</b></mat-label>
+        <mat-label style="text-align: center; font-size: 30px; color: #14131B;"><b>Reset Password</b></mat-label>
         <br>
         <mat-label style="text-align: center">Owner</mat-label>
         <br>
-        <mat-label style="text-align: center;font-size: 20px;color: #14131B"><br>Enter your new password</mat-label>
+        <mat-label style="text-align: center; font-size: 20px; color: #14131B"><br>Enter your new password</mat-label>
         <br>
 
         <mat-label style="text-align: left">New Password</mat-label>
         <mat-form-field>
-          <input matInput [(ngModel)]="password" type="text" placeholder="Password" class="input">
+          <input matInput [(ngModel)]="password" type="password" placeholder="New Password" class="input">
         </mat-form-field>
 
         <br>
         <mat-label style="text-align: left">Confirm Password</mat-label>
         <mat-form-field>
-          <input matInput [(ngModel)]="newpassword" type="text" placeholder="Password" class="input">
+          <input matInput [(ngModel)]="newpassword" type="password" placeholder="Confirm Password" class="input">
         </mat-form-field>
         <br>
-        <button mat-button style="color: white;background-color: #FF7A00;font-family: 'Poppins', sans-serif" [routerLink]="['/validation']">Change Password</button>
+        <button mat-button style="color: white; background-color: #FF7A00; font-family: 'Poppins', sans-serif" routerLink="/pages/validation">
+          Change Password
+        </button>
 
       </div>
     </mat-card-content>

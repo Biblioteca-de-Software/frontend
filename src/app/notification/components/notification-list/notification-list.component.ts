@@ -3,11 +3,13 @@ import { Notification } from '../../models/notification.entity';
 import { NotificationService } from '../../services/notification.service';
 import {NgForOf} from '@angular/common';
 import {environment} from '../../../../environments/environment';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notification-list',
   imports: [
-    NgForOf
+    NgForOf,
+    TranslatePipe
   ],
   templateUrl: './notification-list.component.html',
   standalone: true,

@@ -1,35 +1,30 @@
 import { Component } from '@angular/core';
 import {RegisterWorkerService} from "../../../services/register-worker.service";
 import {Router, RouterLink} from '@angular/router';
-import {MatToolbar} from '@angular/material/toolbar';
 import {MatCard, MatCardContent} from '@angular/material/card';
 import {MatAnchor, MatButton} from '@angular/material/button';
 import {MatInput, MatLabel} from '@angular/material/input';
 import {MatFormField} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import {RegisterOwnerService} from '../../../services/register-owner.service';
+import {TranslatePipe} from '@ngx-translate/core';
 @Component({
   selector: 'app-login-worker',
   templateUrl: './login-worker.component.html',
   imports: [
-    MatToolbar,
     MatCard,
     MatCardContent,
     MatButton,
     RouterLink,
     MatLabel,
-    MatLabel,
-    MatLabel,
-    MatLabel,
-    MatLabel,
-    MatLabel,
-    MatLabel,
     MatFormField,
     MatLabel,
     MatInput,
     FormsModule,
-    MatAnchor
+    MatAnchor,
+    TranslatePipe
   ],
+  standalone: true,
   styleUrls: ['./login-worker.component.css']
 })
 export class LoginWorkerComponent {

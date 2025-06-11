@@ -5,6 +5,7 @@ import {
 } from '../../../analytics/components/order-pie-analytics/order-pie-analytics.component';
 import {OrdersAnalyticsComponent} from '../../../analytics/components/orders-analytics/orders-analytics.component';
 import {ProfitsAnalyticsComponent} from '../../../analytics/components/profits-analytics/profits-analytics.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,9 +13,11 @@ import {ProfitsAnalyticsComponent} from '../../../analytics/components/profits-a
     LossAnalyticsComponent,
     OrderPieAnalyticsComponent,
     OrdersAnalyticsComponent,
-    ProfitsAnalyticsComponent
+    ProfitsAnalyticsComponent,
+    TranslatePipe,
   ],
   templateUrl: './dashboard.component.html',
+  standalone: true,
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {

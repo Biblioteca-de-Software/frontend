@@ -1,0 +1,8 @@
+button[mat-button] {
+  text-transform: none;
+  font-weight: 500;
+}
+
+.mat-menu-item {
+  justify-content: space-between;
+}
