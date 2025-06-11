@@ -37,8 +37,7 @@ export class SubscriptionService {
           features: [
             translations['subscriptions.FEATURES.LIMITED_PRODUCTS'],
             translations['subscriptions.FEATURES.BASIC_ALERTS'],
-            translations['subscriptions.FEATURES.SEARCH'],
-            translations['subscriptions.FEATURES.EXPORT']
+            translations['subscriptions.FEATURES.SEARCH']
           ]
         },
         {
