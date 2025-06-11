@@ -4,7 +4,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { SideNavigationItem } from '../../models/side-navigation-item';
 
@@ -22,7 +21,6 @@ import { SideNavigationItem } from '../../models/side-navigation-item';
     RouterLink,
     RouterLinkActive,
     MatIcon,
-    LanguageSwitcherComponent,
     TranslateModule
   ]
 })
@@ -35,7 +33,8 @@ export class SideNavigationBarComponent {
     { label: 'SIDENAV.INVENTORY', icon: 'inventory_2', route: 'pages/products' },
     { label: 'SIDENAV.PROFILE', icon: 'person', route: 'pages/login-owner' },
     { label: 'SIDENAV.REPORT', icon: 'note_add', route: 'pages/report' },
-    { label: 'SIDENAV.NOTIFICATIONS', icon: 'notifications', route: 'pages/notifications' }
+    { label: 'SIDENAV.NOTIFICATIONS', icon: 'notifications', route: 'pages/notifications' },
+    { label: 'SIDENAV.SUBSCRIPTION', icon: 'payment', route: 'pages/subscription' }
 
   ];
 
