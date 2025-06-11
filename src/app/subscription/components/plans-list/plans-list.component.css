@@ -1,0 +1,100 @@
+.subscription-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.subscription-wrapper h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  justify-content: center;
+  text-align: center;
+}
+
+.subscription-wrapper .subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.plan-card {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 12px;
+  padding: 0.5rem;
+}
+
+.plan-card .mat-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 120px
+}
+
+.plan-card .mat-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.plan-card .mat-card-subtitle {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.25rem;
+}
+
+.plan-card .price {
+  font-size: 1.75rem;
+  color: #1f2937;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.plan-card .features {
+  text-align: left;
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+  list-style: disc;
+}
+
+.plan-card .features li {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 0.4rem;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.plan-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  transition: all 0.3s ease;
+}
+
+.plan-card mat-card-title,
+.plan-card mat-card-subtitle {
+  width: 100%;
+  text-align: center;
+}
+
+
+
