@@ -82,11 +82,20 @@ export class OrderFormComponent implements OnInit {
 
   calculateTotal(): number {
     let total = 0;
+
     this.items.controls.forEach(group => {
-      const dishSelected = this.dishes.find(d => d.id === group.value.dishId);
-      const quantity = group.value.quantity || 0;
-      total += (dishSelected?.price || 0) * quantity;
+      const dishId = group.get('dishId')?.value;
+      const quantity = group.get('quantity')?.value || 0;
+
+      const dishSelected = this.dishes.find(d => d.id === dishId);
+
+      if (dishSelected && !isNaN(dishSelected.price)) {
+        total += dishSelected.price * quantity;
+      } else {
+        console.warn(`Plato con ID ${dishId} no encontrado o inválido`);
+      }
     });
+
     return total;
   }
 
@@ -97,21 +106,25 @@ export class OrderFormComponent implements OnInit {
       return;
     }
 
-    const formValue = this.form.value;
     const calculatedTotal = this.calculateTotal();
+    if (isNaN(calculatedTotal)) {
+      console.error('El total es NaN. Revisa la selección de platos.');
+      return;
+    }
     const currentDate = new Date();
 
-    // Payload para la orden con snake_case
+    const tableNumber = Number(this.form.get('tableNumber')?.value); // ✅ Conversión segura
+    console.log('tableNumber convertido:', tableNumber);
+    console.log('Número de mesa ingresado:', this.form.get('tableNumber')?.value);
+
     const newOrderPayload = {
-      restaurant_id: 1, // Asumiendo restaurant_id fijo, ajústalo si es dinámico
-      table_number: formValue.tableNumber,
-      total: calculatedTotal,
-      createdAt: currentDate.toISOString()
-      // No envíes 'id' u 'order_id', json-server lo generará
+      tableNumber: Number(this.form.get('tableNumber')?.value)
     };
 
+    console.log('Payload enviado:', newOrderPayload); // ✅ Revisa que sea correcto
+
     // @ts-ignore
-    this.orderService.create(newOrderPayload).subscribe({
+    this.orderService.createOrder(newOrderPayload).subscribe({
       next: (orderCreatedResponse: any) => {
         const newOrderId = orderCreatedResponse.id; // Este es el ID generado por json-server
 
@@ -136,7 +149,7 @@ export class OrderFormComponent implements OnInit {
             // Agregamos la promesa del servicio create a un array
             orderDishesPromises.push(
               new Promise((resolve, reject) => {
-                this.orderDishService.create(orderDishPayload).subscribe({
+                this.orderDishService.addDishToOrder(newOrderId, item.dishId, item.quantity).subscribe({
                   next: resolve,
                   error: reject
                 });
