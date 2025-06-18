@@ -7,11 +7,7 @@ import {
   ApexTitleSubtitle, ChartComponent
 } from 'ng-apexcharts';
 
-import {OrderService} from '../../../order/services/order.service';
-import {ProductService} from '../../../inventory/services/product.service';
-import {OrderAssembler} from '../../../order/services/order.assembler';
-import {Product} from '../../../inventory/model/product-entity';
-import {OrderResource} from '../../../order/services/order.response';
+
 import {CommonModule, NgIf} from '@angular/common';
 
 export type ChartOptions = {
