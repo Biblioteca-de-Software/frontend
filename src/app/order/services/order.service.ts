@@ -38,4 +38,13 @@ export class OrderService extends BaseService<Order>{
       })
     );
   }
+
+  createOrder(payload: {
+    table_number: number,
+    total: number,
+    createdAt: string
+  }): Observable<any> {
+    return this.http.post(`${environment.serverBaseUrl}${this.resourceEndpoint}`, payload, this.httpOptions);
+  }
+
 }
