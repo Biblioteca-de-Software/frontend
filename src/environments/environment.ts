@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  serverBaseUrl: 'http://localhost:8080/api/v1',
+  serverBaseUrl: 'https://keepitfreshweb.free.beeceptor.com/api/v1',
   ordersEndpointPath: '/orders',
   dishesEndpointPath: '/dishes',
   orderDishesEndpointPath: '/orders_dishes',
