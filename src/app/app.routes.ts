@@ -18,6 +18,8 @@ const RecoverPasswordWorkerComponent = ()=> import('./public/pages/login/recover
 const NotificationsComponent = () => import('./notification/components/notification-list/notification-list.component').then(m => m.NotificationListComponent);
 
 import {SummaryCardsComponent} from './reports/components/summary-cards/summary-cards.component';
+import {SubscriptionPageComponent} from './subscription/pages/subscription-page/subscription-page.component';
+import {SubscribeSuccessComponent} from './subscription/pages/subscribe-success/subscribe-success.component';
 
 
 
@@ -37,6 +39,8 @@ export const routes: Routes = [
   {path: 'pages/restore-worker',component:RestoreWorkerComponent},
   {path: 'pages/validation',component:ValidationComponent},
   {path : 'pages/report',component:SummaryCardsComponent},
+  {path: 'pages/subscription', component: SubscriptionPageComponent},
+  {path: 'pages/subscription/success', component: SubscribeSuccessComponent},
   { path: '', redirectTo: 'pages/dashboard', pathMatch: 'full' },
   { path: '**', loadComponent: PageNotFoundComponent }
 ];
