@@ -7,7 +7,6 @@ import {reportService} from '../../services/report.service';
 interface Report {
   id: number;
   title: string;
-  date: Date;
   details: string;
 }
 
@@ -27,7 +26,6 @@ export class SummaryCardsComponent implements OnInit {
   newReport: Partial<Report> = {
     id: 0,
     title: '',
-    date: new Date(),
     details: ''
   };
 
@@ -43,15 +41,14 @@ export class SummaryCardsComponent implements OnInit {
     });
   }
   addReport(): void {
-    if (this.newReport.title && this.newReport.date && this.newReport.details) {
+    if (this.newReport.title  && this.newReport.details) {
       const report: Report = {
         id: this.nextId++,
         title: this.newReport.title,
-        date: this.newReport.date,
         details: this.newReport.details
       };
 
-      this.reportService.addReports(report).subscribe(() => {this.newReport = { id: 0, title: '', date: new Date(), details: ''};
+      this.reportService.addReports(report).subscribe(() => {this.newReport = { id: 0, title: '',  details: ''};
        });
     }
   }
