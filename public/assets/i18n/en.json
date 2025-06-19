@@ -10,7 +10,8 @@
     "PROFILE": "Profile",
     "NOTIFICATIONS": "Notifications",
     "DASHBOARD": "Dashboard",
-    "REPORT": "Report"
+    "REPORT": "Report",
+    "SUBSCRIPTION": "Subscriptions"
 },
   "login-owner": {
     "WORKER": "Worker",
@@ -151,6 +152,30 @@
     "TITLE": "Alerts",
     "COLUMN_TITLE": "Title",
     "COLUMN_DATE": "Date"
+  },
+
+  "subscriptions": {
+    "PAGE_TITLE": "Subscribe to KeepItFresh",
+    "PAGE_DESCRIPTION": "Explore our plans and choose the one that fits your restaurant.",
+    "TITLE": "Choose Your Plan",
+    "SUBTITLE": "Select the plan that’s right for you.",
+    "STARTER_NAME": "Starter",
+    "STARTER_DESCRIPTION": "Designed for small and growing businesses.",
+    "PRO_NAME": "Pro (1-Month)",
+    "PRO_YEARLY_NAME": "Pro (12-Month)",
+    "PRO_DESCRIPTION": "Complete solution for your restaurant.",
+    "FEATURES": {
+      "LIMITED_PRODUCTS": "Up to 100 products in inventory",
+      "BASIC_ALERTS": "Basic expiration alerts",
+      "SEARCH": "Search by name and category",
+      "EXPORT": "Export reports in PDF",
+      "UNLIMITED_PRODUCTS": "Unlimited products",
+      "CUSTOM_ROLES": "Unlimited users with custom roles",
+      "EMAIL_REPORTS": "Automated email reports",
+      "TRAINING": "Personalized training",
+      "SUPPORT": "Dedicated technical support"
+    },
+    "SUBSCRIBE": "Subscribe"
   }
 
 
