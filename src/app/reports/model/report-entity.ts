@@ -1,13 +1,19 @@
 export class ReportEntity {
+
+  id?: number;
+  title: string;
+  description: string;
+
+
   constructor(
-    public id: number,
-    public title: string,
-    public details: string
+    id?: number,
+    title?: string,
+    description?: string
   ) {
 
-    this.id = id;
-    this.title = title;
-    this.details = details;
+    this.id = id || 0;
+    this.title = title || "";
+    this.description = description || "";
   }
 
 }

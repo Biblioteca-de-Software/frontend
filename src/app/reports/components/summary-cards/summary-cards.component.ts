@@ -6,9 +6,8 @@ import {reportService} from '../../services/report.service';
 import {TranslatePipe} from '@ngx-translate/core';
 
 interface Report {
-  id: number;
   title: string;
-  details: string;
+  description: string;
 }
 
 @Component({
@@ -24,12 +23,10 @@ interface Report {
 })
 export class SummaryCardsComponent implements OnInit {
   reports: Report[] = [];
-  nextId = 1;
 
   newReport: Partial<Report> = {
-    id: 0,
-    title: '',
-    details: ''
+    description: '',
+    title: ''
   };
 
   constructor(private reportService: reportService) { }
@@ -44,15 +41,18 @@ export class SummaryCardsComponent implements OnInit {
     });
   }
   addReport(): void {
-    if (this.newReport.title  && this.newReport.details) {
-      const report: Report = {
-        id: this.nextId++,
+    if (this.newReport.title && this.newReport.description) {
+      const reportPayload = {
         title: this.newReport.title,
-        details: this.newReport.details
+        description: this.newReport.description
       };
 
-      this.reportService.addReports(report).subscribe(() => {this.newReport = { id: 0, title: '',  details: ''};
-       });
+      this.reportService.addReports(reportPayload).subscribe((savedReport: any) => {
+        // Assuming backend returns the saved report with ID
+        const newEntity = new ReportEntity(savedReport.id, savedReport.title, savedReport.description);
+        this.reports.push(newEntity);
+        this.newReport = { title: '', description: '' };
+      });
     }
   }
 }
