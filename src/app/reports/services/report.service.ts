@@ -13,7 +13,7 @@ export class reportService extends BaseService<ReportEntity> {
 
   constructor() {
     super();
-    this.resourceEndpoint = environment.serverBaseUrl + orderResourceEndpoint;
+    this.resourceEndpoint = orderResourceEndpoint;
   }
 
 
@@ -25,11 +25,11 @@ export class reportService extends BaseService<ReportEntity> {
   }
 
   addReports(payload:{
-    title: string;
     details: string;
-  }): Observable<ReportEntity>
+    title: string;
+  }): Observable<any>
   {
-    return this.http.post<ReportEntity>(this.resourcePath(), payload, this.httpOptions)
+    return this.http.post(`${environment.serverBaseUrl}${this.resourceEndpoint}`, payload, this.httpOptions)
   }
 
   //getReports(): Observable<ReportEntity[]> {
