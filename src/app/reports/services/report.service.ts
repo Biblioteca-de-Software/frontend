@@ -13,7 +13,7 @@ export class reportService extends BaseService<ReportEntity> {
 
   constructor() {
     super();
-    this.resourceEndpoint = orderResourceEndpoint;
+    this.resourceEndpoint = environment.serverBaseUrl + orderResourceEndpoint;
   }
 
 

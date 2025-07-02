@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
-  serverBaseUrl: 'http://localhost:3000/api/v1',
-  reportProviderApiBaseUrl: '/reports'
+  serverBaseUrl: 'http://localhost:3306/api/v1',
+  reportProviderApiBaseUrl: '/reports',
+  reportEndpointPath: '/reports',
 };

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import {MainComponent} from './public/components/main/main.component';
+import { SummaryCardsComponent} from './reports/components/summary-cards/summary-cards.component';
 
 @Component({
   selector: 'app-root',
   imports: [
-    MainComponent
+    SummaryCardsComponent
   ],
   templateUrl: './app.component.html',
   standalone: true,
