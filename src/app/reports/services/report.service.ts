@@ -25,8 +25,8 @@ export class reportService extends BaseService<ReportEntity> {
   }
 
   addReports(payload:{
-    details: string;
     title: string;
+    description: string;
   }): Observable<any>
   {
     return this.http.post(`${environment.serverBaseUrl}${this.resourceEndpoint}`, payload, this.httpOptions)
