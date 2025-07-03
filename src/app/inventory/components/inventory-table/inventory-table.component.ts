@@ -60,18 +60,14 @@ export class InventoryTableComponent implements OnInit {
 
     const formValue = this.productForm.value;
 
-    // Aquí NO asignamos 'id' manualmente
-    const newProduct = {
-      // id: no enviamos nada
-      inventory_id: formValue.inventory_id,
+    const createProductDto = {
       name: formValue.name,
-      expiration_date: formValue.expiration_date,
-      stock: formValue.stock,
-      measurement_unit: formValue.measurement_unit,
-      price: formValue.price
+      quantity: Number(formValue.stock),
+      expirationDate: new Date(formValue.expiration_date).toISOString().split('T')[0], // yyyy-MM-dd
+      price: Number(formValue.price)
     };
 
-    this.productService.addProduct(newProduct as any).subscribe({
+    this.productService.addProduct(createProductDto as any).subscribe({
       next: (added) => {
         this.products.push(added);
         this.productForm.reset();
