@@ -29,22 +29,24 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrls: ['./login-owner.component.css']
 })
 export class LoginOwnerComponent {
-  user = { email: '', password: '' };
+  user = {email: '', password: ''};
 
   constructor(
     private router: Router,
     private registerOwnerService: RegisterOwnerService
-  ) {}
+  ) {
+  }
 
   onSubmit() {
     this.registerOwnerService.login(this.user.email, this.user.password)
       .subscribe({
-        next: (user) => {
-          this.router.navigate(['/owner/main-page-owner', user.id]);
-          localStorage.setItem('onid', user.id.toString());
+        next: (response) => {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('onid', response.id);
+          this.router.navigate(['/pages/dashboard']);
         },
         error: () => {
-          alert("Vuelve a ingresar tus datos");
+          alert('Credenciales incorrectas. Vuelve a intentarlo.');
         }
       });
   }

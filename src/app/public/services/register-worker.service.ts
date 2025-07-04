@@ -6,29 +6,33 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class RegisterWorkerService {
-  private apiUrl = 'http://localhost:3000/users';
-  private profileUrl = 'http://localhost:3000/profiles'; // Asegúrate de que este endpoint exista
+  private apiUrl = 'http://localhost:8080/api/v1/authentication/sign-up';
+  private profileUrl = 'http://localhost:8080/api/v1/profiles';
   private currentUserId: number | null = null;
 
   constructor(private http: HttpClient) {}
 
-  // Usado para registrar al trabajador
+  // Enviar solo lo necesario al backend
   addUserWorker(userData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, userData);
+    const body = {
+      username: userData.email,
+      password: userData.password,
+      roles: [{ name: 'ROLE_WORKER' }]
+    };
+    return this.http.post<any>(this.apiUrl, body);
   }
 
-  // Guarda el ID actual para usos posteriores si es necesario
+
   setCurrentUserId(id: number) {
     this.currentUserId = id;
   }
 
-  // Crea el perfil con imagen usando workerId
   addImageProfile(profileData: any): Observable<any> {
     return this.http.post<any>(this.profileUrl, profileData);
   }
 
-  // Método de login (si lo necesitas más adelante)
   login(email: string, password: string): Observable<any> {
+    // No se usa aquí, pero lo dejamos por si acaso
     return this.http.get<any[]>(`${this.apiUrl}?email=${email}&password=${password}`)
       .pipe(
         map(users => {
