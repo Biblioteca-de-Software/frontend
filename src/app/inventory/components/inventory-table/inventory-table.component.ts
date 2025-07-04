@@ -36,11 +36,9 @@ export class InventoryTableComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.productForm = this.fb.group({
-      inventory_id: [null, Validators.required],
       name: ['', Validators.required],
       expiration_date: ['', Validators.required],
       stock: [0, [Validators.required, Validators.min(1)]],
-      measurement_unit: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0.01)]],
     });
   }

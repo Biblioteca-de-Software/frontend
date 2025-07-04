@@ -34,11 +34,6 @@
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
 
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>{{ 'inventory.INVENTORY_ID' | translate }}</mat-label>
-        <input matInput type="number" formControlName="inventory_id">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="w-100">
         <mat-label>{{ 'inventory.NAME' | translate }}</mat-label>
         <input matInput type="text" formControlName="name">
       </mat-form-field>
@@ -51,11 +46,6 @@
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>{{ 'inventory.STOCK' | translate }}</mat-label>
         <input matInput type="number" formControlName="stock">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="w-100">
-        <mat-label>{{ 'inventory.MEASUREMENT_UNIT' | translate }}</mat-label>
-        <input matInput type="text" formControlName="measurement_unit">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
