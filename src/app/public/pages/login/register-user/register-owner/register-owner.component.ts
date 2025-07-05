@@ -45,30 +45,31 @@ export class RegisterOwnerComponent {
 
   onSubmit() {
     this.user.username = this.user.email;
-    console.log('Datos a registrar:', this.user);
 
     this.userService.addUser(this.user).subscribe((data: any) => {
       console.log('Usuario creado:', data);
-      this.user = {
-        username: '',
-        email: '',
-        password: '',
-        lastName: '',
-        firstName: '',
-        birthDate: '',
-        phoneNumber: ''
-      };
-      this.userService.setCurrentUserId(data.id);
-
       const ownerId = data.id;
-      if (ownerId !== null) {
-        this.profile.ownerId = ownerId;
-        this.userService.addimageprofile(this.profile).subscribe((data: any) => {
-          console.log('Imagen de Perfil creada:', data.id);
-        });
-      } else {
-        console.error('Error: ownerId es nulo');
-      }
+      this.userService.setCurrentUserId(ownerId);
+
+      // ✅ Crear perfil con los campos correctos
+      const profile = {
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        email: this.user.email,
+        birthDate: this.user.birthDate,
+        phoneNumber: this.user.phoneNumber,
+        userId: ownerId
+      };
+
+      this.userService.addimageprofile(profile).subscribe({
+        next: (res: any) => {
+          console.log('Perfil creado:', res);
+          this.router.navigate(['/pages/login-owner']);
+        },
+        error: (err) => {
+          console.error('Error al crear perfil', err);
+        }
+      });
     });
   }
 }

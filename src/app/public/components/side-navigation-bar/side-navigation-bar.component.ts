@@ -34,7 +34,7 @@ export class SideNavigationBarComponent {
     { label: 'SIDENAV.DASHBOARD', icon: 'dashboard', route: 'pages/dashboard' },
     { label: 'SIDENAV.ORDERS', icon: 'restaurant_menu', route: 'pages/orders' },
     { label: 'SIDENAV.INVENTORY', icon: 'inventory_2', route: 'pages/products' },
-    { label: 'SIDENAV.PROFILE', icon: 'person', route: 'pages/login-owner' },
+    { label: 'SIDENAV.PROFILE', icon: 'person', route: 'pages/profile' },
     { label: 'SIDENAV.REPORT', icon: 'note_add', route: 'pages/report' },
     { label: 'SIDENAV.NOTIFICATIONS', icon: 'notifications', route: 'pages/notifications' },
     { label: 'SIDENAV.SUBSCRIPTION', icon: 'payment', route: 'pages/subscription' },

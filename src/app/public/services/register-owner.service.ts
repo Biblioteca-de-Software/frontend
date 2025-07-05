@@ -22,10 +22,15 @@ export class RegisterOwnerService {
     this.currentUserId = id;
   }
 
-  // Crear el perfil asociado
   addimageprofile(profileData: any): Observable<any> {
-    return this.http.post<any>(this.profileUrl, profileData);
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+    return this.http.post<any>(this.profileUrl, profileData, { headers });
   }
+
+
 
   // Iniciar sesión del usuario
   login(email: string, password: string): Observable<any> {

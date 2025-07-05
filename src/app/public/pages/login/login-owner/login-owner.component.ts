@@ -41,6 +41,8 @@ export class LoginOwnerComponent {
     this.registerOwnerService.login(this.user.email, this.user.password)
       .subscribe({
         next: (response) => {
+          console.log('Login response:', response); // 👈 Agrega esto
+
           localStorage.setItem('token', response.token);
           localStorage.setItem('onid', response.id);
           this.router.navigate(['/pages/dashboard']);
