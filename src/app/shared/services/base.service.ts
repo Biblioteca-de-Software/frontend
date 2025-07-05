@@ -1,50 +1,55 @@
-import {HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import {inject} from '@angular/core';
-import {catchError, Observable, retry, throwError} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 
 export abstract class BaseService<T> {
-  protected httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-  protected serverBaseUrl: string = `${environment.serverBaseUrl}`;
-  protected resourceEndpoint: string = '/resources';
-  protected http: HttpClient = inject(HttpClient);
+  protected resourceEndpoint!: string;
 
-  protected handleError(error: HttpErrorResponse) {
-    if(error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
-    }
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+  constructor(protected http: HttpClient) {}
+
+  // ✅ Headers con token actualizado dinámicamente
+  protected getAuthHeaders(): { headers: HttpHeaders } {
+    const token = localStorage.getItem('token');
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      })
+    };
   }
 
-  protected resourcePath(): string {
-    return `${this.serverBaseUrl}${this.resourceEndpoint}`;
+  // 🔄 Obtener URL completa
+  protected resourcePath(id?: number): string {
+    return id ? `${this.resourceEndpoint}/${id}` : this.resourceEndpoint;
   }
 
+  // ✅ GET ALL
+  public getAll(): Observable<T[]> {
+    return this.http.get<T[]>(this.resourcePath(), this.getAuthHeaders());
+  }
+
+  // ✅ GET BY ID
+  public getById(id: number): Observable<T> {
+    return this.http.get<T>(this.resourcePath(id), this.getAuthHeaders());
+  }
+
+  // ✅ CREATE
   public create(resource: T): Observable<T> {
-    return this.http.post<T>(this.resourcePath(), JSON.stringify(resource), this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+    return this.http.post<T>(this.resourcePath(), resource, this.getAuthHeaders());
   }
 
-  public delete(id: any): Observable<any> {
-    return this.http.delete(`${this.resourcePath()}/${id}`, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+  // ✅ UPDATE
+  public update(id: number, resource: T): Observable<T> {
+    return this.http.put<T>(this.resourcePath(id), resource, this.getAuthHeaders());
   }
 
-  public update(id: any, resource: T): Observable<T> {
-    return this.http.put<T>(`${this.resourcePath()}/${id}`, JSON.stringify(resource), this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+  // ✅ DELETE
+  public delete(id: number): Observable<T> {
+    return this.http.delete<T>(this.resourcePath(id), this.getAuthHeaders());
   }
 
-  public getAll(): Observable<Array<T>> {
-    return this.http.get<Array<T>>(this.resourcePath(), this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
-  }
-
-  public getById(id: any): Observable<T> {
-    return this.http.get<T>(`${this.resourcePath()}/${id}`, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+  // ❌ Manejo de errores (puedes personalizar)
+  protected handleError(error: any): Observable<never> {
+    console.error('BaseService Error:', error);
+    return throwError(() => error);
   }
 }

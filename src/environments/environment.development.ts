@@ -8,5 +8,7 @@ export const environment = {
   serverBaseUrlProducts: 'http://localhost:8080/api/v1/products',
   reportProviderApiBaseUrl: '/api/reports',
   orderSummaryEndpointPath: '/orders/order-summary',
+  reportEndpointPath: '/reports'
+
 };
 

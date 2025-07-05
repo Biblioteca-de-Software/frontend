@@ -4,28 +4,44 @@
       <h3>{{ report.title }}</h3>
     </div>
     <div class="card-body">
-      <p><strong>{{ 'report.ID' | translate }}:</strong> {{ report.id }}</p>
-      <p><strong>{{ 'report.DATE' | translate }}:</strong> {{ report.date }}</p>
-      <p><strong>{{ 'report.DETAILS' | translate }}:</strong> {{ report.details }}</p>
+      <p><strong>ID:</strong> {{ report.id }}</p>
+      <p><strong>Detalles:</strong> {{ report.description }}</p>
     </div>
   </div>
 
   <form (ngSubmit)="addReport()" #reportForm="ngForm">
     <div class="form-group">
-      <label for="title">{{ 'report.TITLE' | translate }}</label>
+      <label for="title">Título</label>
       <input type="text" id="title" [(ngModel)]="newReport.title" name="title" class="form-control" required />
     </div>
 
     <div class="form-group">
-      <label for="date">{{ 'report.DATE' | translate }}</label>
-      <input type="date" id="date" [(ngModel)]="newReport.date" name="date" class="form-control" required />
+      <label for="details">Detalles</label>
+      <textarea id="details" [(ngModel)]="newReport.description" name="details" class="form-control" required></textarea>
     </div>
 
-    <div class="form-group">
-      <label for="details">{{ 'report.DETAILS' | translate }}</label>
-      <textarea id="details" [(ngModel)]="newReport.details" name="details" class="form-control" required></textarea>
-    </div>
-
-    <button type="submit" class="btn btn-primary">{{ 'report.ADD' | translate }}</button>
+    <button type="submit" class="btn btn-primary">Agregar Reporte</button>
   </form>
 </div>
+
+<style>
+  .container {
+    padding: 20px;
+  }
+
+  .card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .btn {
+    margin-top: 10px;
+  }
+</style>
