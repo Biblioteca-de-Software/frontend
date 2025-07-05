@@ -6,7 +6,6 @@ import {DashboardComponent} from './public/pages/dashboard/dashboard.component';
 import {HomeComponent} from './public/pages/home/home.component';
 
 import { AuthGuard } from './guards/auth.guard';
-import {ProfileComponent} from './public/pages/profile/profile.component';
 const PageNotFoundComponent = () => import('./public/pages/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent);
 const OrdersComponent = () => import('./order/pages/orders/orders.component').then(m => m.OrdersComponent);
 const InventoryComponent = () => import('./inventory/components/inventory-table/inventory-table.component').then(m => m.InventoryTableComponent);
@@ -36,7 +35,6 @@ export const routes: Routes = [
   { path: 'pages/validation', component: ValidationComponent },
 
   // RUTAS PRIVADAS (protegidas con AuthGuard)
-  { path: 'pages/profile', component: ProfileComponent , canActivate: [AuthGuard] },
 
   { path: 'pages/dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'pages/home', component: HomeComponent, canActivate: [AuthGuard] },
