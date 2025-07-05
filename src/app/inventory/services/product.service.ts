@@ -1,29 +1,39 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Product} from '../models/product.entity';
-import {environment} from '../../../environments/environment';
-import {map, Observable} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Product } from '../models/product.entity';
+import { environment } from '../../../environments/environment';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getProducts() {
-    return this.http.get<Product[]>(environment.serverBaseUrlProducts);
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
   }
 
-  addProduct(product: Omit<Product, 'id'>): Observable<Product> {
-    return this.http.post<Product>(environment.serverBaseUrlProducts, product);
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(environment.serverBaseUrlProducts, {
+      headers: this.getAuthHeaders()
+    });
   }
 
-  getTotalCostByWeekday(): Observable<{ [day: string]: number }> {
+  addProduct(product: Omit<Product, 'productId'>): Observable<Product> {
+    return this.http.post<Product>(environment.serverBaseUrlProducts, product, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  getTotalCostByWeekday(): Observable<{ [key: string]: number }> {
     return this.getProducts().pipe(
       map(products => {
-        // Inicializamos acumuladores para cada día de la semana
-        const totalsByDay: { [key: string]: number } = {
+        const totals: { [key: string]: number } = {
           Monday: 0,
           Tuesday: 0,
           Wednesday: 0,
@@ -34,22 +44,12 @@ export class ProductService {
         };
 
         products.forEach(product => {
-          // Parseamos la fecha de expiración
-          const date = new Date(product.expiration_date);
-
-          // Obtenemos el día de la semana (0 = domingo, 1 = lunes, ...)
-          const dayIndex = date.getUTCDay();
-
-          // Mapeamos el índice a nombre del día
-          // Domingo=0, Lunes=1 ... para ajustar los nombres:
-          const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-          const dayName = dayNames[dayIndex];
-
-          // Acumulamos el costo total: price * stock
-          totalsByDay[dayName] += product.price * product.stock;
+          const day = new Date(product.expirationDate).toLocaleDateString('en-US', { weekday: 'long' });
+          const total = product.price * product.quantity;  // Usando 'quantity' en lugar de 'stock'
+          totals[day] += total;
         });
 
-        return totalsByDay;
+        return totals;
       })
     );
   }

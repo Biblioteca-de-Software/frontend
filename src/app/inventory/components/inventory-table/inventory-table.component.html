@@ -4,25 +4,24 @@
   <thead>
   <tr>
     <th>{{ 'inventory.ID' | translate }}</th>
-    <th>{{ 'inventory.INVENTORY_ID' | translate }}</th>
     <th>{{ 'inventory.NAME' | translate }}</th>
     <th>{{ 'inventory.EXPIRATION_DATE' | translate }}</th>
     <th>{{ 'inventory.STOCK' | translate }}</th>
-    <th>{{ 'inventory.MEASUREMENT_UNIT' | translate }}</th>
     <th>{{ 'inventory.PRICE' | translate }}</th>
+    <th>Total</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let product of products">
-    <td>{{ product.id }}</td>
-    <td>{{ product.inventory_id }}</td>
+    <td>{{ product.productId }}</td>
     <td>{{ product.name }}</td>
-    <td>{{ product.expiration_date | date }}</td>
-    <td>{{ product.stock }}</td>
-    <td>{{ product.measurement_unit }}</td>
+    <td>{{ product.expirationDate | date }}</td>
+    <td>{{ product.quantity }}</td>
     <td>{{ product.price | currency }}</td>
+    <td>{{ product.price * product.quantity | currency }}</td>
   </tr>
   </tbody>
+
 </table>
 
 <mat-card class="product-form-card">
@@ -36,28 +35,18 @@
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
 
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>{{ 'inventory.INVENTORY_ID' | translate }}</mat-label>
-        <input matInput type="number" formControlName="inventory_id">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="w-100">
         <mat-label>{{ 'inventory.NAME' | translate }}</mat-label>
         <input matInput type="text" formControlName="name">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>{{ 'inventory.EXPIRATION_DATE' | translate }}</mat-label>
-        <input matInput type="date" formControlName="expiration_date">
+        <input matInput type="date" formControlName="expiration_date" [min]="today">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>{{ 'inventory.STOCK' | translate }}</mat-label>
         <input matInput type="number" formControlName="stock">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="w-100">
-        <mat-label>{{ 'inventory.MEASUREMENT_UNIT' | translate }}</mat-label>
-        <input matInput type="text" formControlName="measurement_unit">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">

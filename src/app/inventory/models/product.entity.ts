@@ -1,19 +1,31 @@
 export class Product {
-  id: number;
-  inventory_id: number;
+  productId: number;
   name: string;
-  expiration_date: string;  // ISO string
-  stock: number;
-  measurement_unit: string;
+  expirationDate: string;
+  quantity: number;
   price: number;
 
-  constructor(data: {id: number, inventory_id: number, name: string, expiration_date: string, stock: number, measurement_unit: string, price: number}) {
-    this.id = data.id;
-    this.inventory_id = data.inventory_id;
+  constructor(data: {
+    productId: number,
+    name: string,
+    expirationDate: string,
+    quantity: number,
+    price: number
+  }) {
+    this.productId = data.productId;
     this.name = data.name;
-    this.expiration_date = data.expiration_date;
-    this.stock = data.stock;
-    this.measurement_unit = data.measurement_unit;
+    this.expirationDate = data.expirationDate;
+    this.quantity = data.quantity;
     this.price = data.price;
+  }
+
+  static fromForm(formValue: any): Product {
+    return new Product({
+      productId: 0,
+      name: formValue.name,
+      expirationDate: formValue.expiration_date,
+      quantity: formValue.stock,
+      price: formValue.price
+    });
   }
 }
