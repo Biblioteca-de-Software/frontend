@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {RegisterOwnerService} from "../../../../services/register-owner.service";
+import { tap } from 'rxjs/operators';
 
 import {Router, RouterLink} from "@angular/router";
 import {MatButton} from '@angular/material/button';
@@ -72,4 +73,5 @@ export class RegisterOwnerComponent {
       });
     });
   }
+
 }

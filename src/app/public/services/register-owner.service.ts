@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -34,10 +35,22 @@ export class RegisterOwnerService {
 
   // Iniciar sesión del usuario
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/sign-in`, {
+    return this.http.post<any>(`${this.apiUrl}/sign-in`, {
       username: email,
       password: password
-    });
+    }).pipe(
+      tap(response => {
+        const token = response.token;
+        localStorage.setItem('token', token);
+
+        // ✅ Extraer el username desde el JWT
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const username = payload.sub;
+
+        // ✅ Guardar el username en el localStorage
+        localStorage.setItem('currentUser', username);
+      })
+    );
   }
 
   // Cerrar sesión: eliminar token e ID, redirigir si es necesario
@@ -51,4 +64,5 @@ export class RegisterOwnerService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
+
 }
