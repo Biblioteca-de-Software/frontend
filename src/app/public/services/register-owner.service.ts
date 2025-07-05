@@ -1,43 +1,68 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterOwnerService {
-  private apiUrl = 'http://localhost:3000/users';
-  private profileUrl = 'http://localhost:3000/profiles'; // Ajusta si tu endpoint es diferente
+  private apiUrl = 'http://localhost:8080/api/v1/authentication';
+  private profileUrl = 'http://localhost:8080/api/v1/profiles';
   private currentUserId: number | null = null;
 
   constructor(private http: HttpClient) {}
 
+  // Registrar nuevo usuario (Owner)
   addUser(userData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, userData);
+    return this.http.post<any>(`${this.apiUrl}/sign-up`, userData);
   }
 
-  // Usado para guardar el ID del usuario actual después del registro
+  // Guardar ID actual del usuario registrado (si necesitas reutilizarlo)
   setCurrentUserId(id: number) {
     this.currentUserId = id;
   }
 
-  // Usado por el componente para subir la imagen de perfil
   addimageprofile(profileData: any): Observable<any> {
-    return this.http.post<any>(this.profileUrl, profileData);
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+    return this.http.post<any>(this.profileUrl, profileData, { headers });
   }
 
 
+
+  // Iniciar sesión del usuario
   login(email: string, password: string): Observable<any> {
-    return this.http.get<any[]>(`${this.apiUrl}?email=${email}&password=${password}`)
-      .pipe(
-        map(users => {
-          if (users.length > 0) {
-            localStorage.setItem('userId', users[0].id);
-            return users[0];
-          } else {
-            throw new Error('Credenciales inválidas');
-          }
-        })
-      );
+    return this.http.post<any>(`${this.apiUrl}/sign-in`, {
+      username: email,
+      password: password
+    }).pipe(
+      tap(response => {
+        const token = response.token;
+        localStorage.setItem('token', token);
+
+        // ✅ Extraer el username desde el JWT
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const username = payload.sub;
+
+        // ✅ Guardar el username en el localStorage
+        localStorage.setItem('currentUser', username);
+      })
+    );
   }
+
+  // Cerrar sesión: eliminar token e ID, redirigir si es necesario
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('onid'); // o 'workerId' si aplica
+    this.currentUserId = null;
+  }
+
+  // Verifica si el usuario está autenticado
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
 }

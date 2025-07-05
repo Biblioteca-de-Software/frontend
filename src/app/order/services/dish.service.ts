@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import {BaseService} from '../../shared/services/base.service';
-import {Dish} from '../models/dish.entity';
-import {catchError, map, Observable, retry} from 'rxjs';
-import {environment} from '../../../environments/environment';
+import { BaseService } from '../../shared/services/base.service';
+import { Dish } from '../models/dish.entity';
+import { catchError, map, Observable, retry } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 const dishResourceEndpointPath = environment.dishesEndpointPath;
 
 @Injectable({
   providedIn: 'root'
 })
-export class DishService extends BaseService<Dish>{
+export class DishService extends BaseService<Dish> {
 
-  constructor() {
-    super();
+  constructor(http: HttpClient) {
+    super(http); // ✅ IMPORTANTE
     this.resourceEndpoint = dishResourceEndpointPath;
   }
 
-  public getAllDishes(): Observable<Array<Dish>> {
-    // Especifica 'any[]' para la respuesta cruda del HTTP GET
-    return this.http.get<Array<any>>(this.resourcePath(), this.httpOptions).pipe(
+  public getAllDishes(): Observable<Dish[]> {
+    return this.http.get<any[]>(this.resourcePath(), this.getAuthHeaders()).pipe(
       retry(2),
-      map((rawDishes: any[]) => rawDishes.map(d => new Dish({ // Mapea a instancias de Dish
-        id: d.dish_id, // Correcto: mapea dish_id de db.json a la propiedad id del modelo Dish
+      map(rawDishes => rawDishes.map(d => new Dish({
+        id: d.dish_id,
         name: d.name,
         price: d.price
       }))),

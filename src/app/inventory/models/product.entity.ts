@@ -18,4 +18,14 @@ export class Product {
     this.quantity = data.quantity;
     this.price = data.price;
   }
+
+  static fromForm(formValue: any): Product {
+    return new Product({
+      productId: 0,
+      name: formValue.name,
+      expirationDate: formValue.expiration_date,
+      quantity: formValue.stock,
+      price: formValue.price
+    });
+  }
 }

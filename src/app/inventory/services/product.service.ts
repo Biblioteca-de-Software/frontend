@@ -1,28 +1,39 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Product} from '../models/product.entity';
-import {environment} from '../../../environments/environment';
-import {map, Observable} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Product } from '../models/product.entity';
+import { environment } from '../../../environments/environment';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+  }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(environment.serverBaseUrlProducts);
+    return this.http.get<Product[]>(environment.serverBaseUrlProducts, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   addProduct(product: Omit<Product, 'productId'>): Observable<Product> {
-    return this.http.post<Product>(environment.serverBaseUrlProducts, product);
+    return this.http.post<Product>(environment.serverBaseUrlProducts, product, {
+      headers: this.getAuthHeaders()
+    });
   }
 
-  getTotalCostByWeekday(): Observable<{ [day: string]: number }> {
+  getTotalCostByWeekday(): Observable<{ [key: string]: number }> {
     return this.getProducts().pipe(
       map(products => {
-        const totalsByDay: { [key: string]: number } = {
+        const totals: { [key: string]: number } = {
           Monday: 0,
           Tuesday: 0,
           Wednesday: 0,
@@ -33,15 +44,12 @@ export class ProductService {
         };
 
         products.forEach(product => {
-          const date = new Date(product.expirationDate);
-          const dayIndex = date.getUTCDay();
-          const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-          const dayName = dayNames[dayIndex];
-
-          totalsByDay[dayName] += product.price * product.quantity;
+          const day = new Date(product.expirationDate).toLocaleDateString('en-US', { weekday: 'long' });
+          const total = product.price * product.quantity;  // Usando 'quantity' en lugar de 'stock'
+          totals[day] += total;
         });
 
-        return totalsByDay;
+        return totals;
       })
     );
   }

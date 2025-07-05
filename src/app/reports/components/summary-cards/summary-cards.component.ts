@@ -1,37 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {NgForOf} from '@angular/common';
-import {ReportEntity} from '../../model/report-entity';
-import {reportService} from '../../services/report.service';
-import {TranslatePipe} from '@ngx-translate/core';
-
-interface Report {
-  id: number;
-  title: string;
-  date: Date;
-  details: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgForOf } from '@angular/common';
+import { ReportEntity } from '../../model/report-entity';
+import { reportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-summary-cards',
   templateUrl: './summary-cards.component.html',
   imports: [
     FormsModule,
-    NgForOf,
-    TranslatePipe
+    NgForOf
   ],
-  standalone: true,
   styleUrls: ['./summary-cards.component.css']
 })
 export class SummaryCardsComponent implements OnInit {
-  reports: Report[] = [];
-  nextId = 1;
+  reports: ReportEntity[] = [];
 
-  newReport: Partial<Report> = {
-    id: 0,
+  newReport: Partial<ReportEntity> = {
     title: '',
-    date: new Date(),
-    details: ''
+    description: ''
   };
 
   constructor(private reportService: reportService) { }
@@ -45,17 +32,18 @@ export class SummaryCardsComponent implements OnInit {
       this.reports = data;
     });
   }
+
   addReport(): void {
-    if (this.newReport.title && this.newReport.date && this.newReport.details) {
-      const report: Report = {
-        id: this.nextId++,
+    if (this.newReport.title && this.newReport.description) {
+      const report = {
         title: this.newReport.title,
-        date: this.newReport.date,
-        details: this.newReport.details
+        description: this.newReport.description
       };
 
-      this.reportService.addReports(report).subscribe(() => {this.newReport = { id: 0, title: '', date: new Date(), details: ''};
-       });
+      this.reportService.addReports(report).subscribe((savedReport: ReportEntity) => {
+        this.reports.push(savedReport); // optional, if backend returns the created report with ID
+        this.newReport = { title: '', description: '' };
+      });
     }
   }
 }

@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import {RegisterWorkerService} from "../../../services/register-worker.service";
-import {Router, RouterLink} from '@angular/router';
-import {MatCard, MatCardContent} from '@angular/material/card';
-import {MatAnchor, MatButton} from '@angular/material/button';
-import {MatInput, MatLabel} from '@angular/material/input';
-import {MatFormField} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
-import {RegisterOwnerService} from '../../../services/register-owner.service';
-import {TranslatePipe} from '@ngx-translate/core';
+import { Router, RouterLink } from '@angular/router';
+import { RegisterWorkerService } from '../../../services/register-worker.service';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatButton, MatAnchor } from '@angular/material/button';
+import { MatInput, MatLabel } from '@angular/material/input';
+import { MatFormField } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-login-worker',
   templateUrl: './login-worker.component.html',
+  styleUrls: ['./login-worker.component.css'],
+  standalone: true,
   imports: [
     MatCard,
     MatCardContent,
@@ -18,17 +20,15 @@ import {TranslatePipe} from '@ngx-translate/core';
     RouterLink,
     MatLabel,
     MatFormField,
-    MatLabel,
     MatInput,
     FormsModule,
     MatAnchor,
     TranslatePipe
-  ],
-  standalone: true,
-  styleUrls: ['./login-worker.component.css']
+  ]
 })
 export class LoginWorkerComponent {
   user = { email: '', password: '' };
+  errorMessage = '';
 
   constructor(
     private router: Router,
@@ -36,15 +36,15 @@ export class LoginWorkerComponent {
   ) {}
 
   onSubmit() {
-    this.registerWorkerService.login(this.user.email, this.user.password)
-      .subscribe({
-        next: (user) => {
-          this.router.navigate(['/owner/main-page-owner', user.id]);
-          localStorage.setItem('onid', user.id.toString());
-        },
-        error: () => {
-          alert("Vuelve a ingresar tus datos");
-        }
-      });
+    this.registerWorkerService.login(this.user.email, this.user.password).subscribe({
+      next: (res: any) => {
+        localStorage.setItem('token', res.token); // si el backend devuelve un JWT
+        localStorage.setItem('wid', res.id.toString()); // para identificar que es worker
+        this.router.navigate(['/pages/home']);
+      },
+      error: () => {
+        this.errorMessage = 'Credenciales inválidas. Intenta de nuevo.';
+      }
+    });
   }
 }
