@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   serverBaseUrl: 'http://localhost:8080/api/v1',
   ordersEndpointPath: '/orders',
   dishesEndpointPath: '/dishes',
@@ -11,4 +11,3 @@ export const environment = {
   reportEndpointPath: '/reports'
 
 };
-

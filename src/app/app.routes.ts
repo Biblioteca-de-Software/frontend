@@ -7,7 +7,6 @@ import {HomeComponent} from './public/pages/home/home.component';
 
 import { AuthGuard } from './guards/auth.guard';
 const PageNotFoundComponent = () => import('./public/pages/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent);
-const OrdersComponent = () => import('./order/pages/orders/orders.component').then(m => m.OrdersComponent);
 const InventoryComponent = () => import('./inventory/components/inventory-table/inventory-table.component').then(m => m.InventoryTableComponent);
 const LoginOwnerComponent = () => import('./public/pages/login/login-owner/login-owner.component').then(m => m.LoginOwnerComponent);
 const LoginWorkerComponent = () => import('./public/pages/login/login-worker/login-worker.component').then(m => m.LoginWorkerComponent);
@@ -20,6 +19,7 @@ const NotificationsComponent = () => import('./notification/components/notificat
 import {SummaryCardsComponent} from './reports/components/summary-cards/summary-cards.component';
 import {SubscriptionPageComponent} from './subscription/pages/subscription-page/subscription-page.component';
 import {SubscribeSuccessComponent} from './subscription/pages/subscribe-success/subscribe-success.component';
+import {OrdersPageComponent} from './neworders/pages/order-page/order-page.component';
 
 export const routes: Routes = [
 
@@ -39,7 +39,7 @@ export const routes: Routes = [
   { path: 'pages/dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'pages/home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'pages/notifications', loadComponent: NotificationsComponent, canActivate: [AuthGuard] },
-  { path: 'pages/orders', loadComponent: OrdersComponent, canActivate: [AuthGuard] },
+  { path: 'pages/orders', component: OrdersPageComponent, canActivate: [AuthGuard] },
   { path: 'pages/products', loadComponent: InventoryComponent, canActivate: [AuthGuard] },
   { path: 'pages/report', component: SummaryCardsComponent, canActivate: [AuthGuard] },
   { path: 'pages/subscription', component: SubscriptionPageComponent, canActivate: [AuthGuard] },

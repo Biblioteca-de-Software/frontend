@@ -5,16 +5,15 @@ import { catchError, map, Observable, retry } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
-const dishResourceEndpointPath = environment.dishesEndpointPath;
-
 @Injectable({
   providedIn: 'root'
 })
 export class DishService extends BaseService<Dish> {
 
-  constructor(http: HttpClient) {
-    super(http); // ✅ IMPORTANTE
-    this.resourceEndpoint = dishResourceEndpointPath;
+  protected override resourceEndpoint = `${environment.serverBaseUrl}${environment.dishesEndpointPath}`;
+
+  constructor(protected override http: HttpClient) {
+    super(http);
   }
 
   public getAllDishes(): Observable<Dish[]> {

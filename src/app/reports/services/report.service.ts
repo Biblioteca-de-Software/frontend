@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, retry } from 'rxjs';
-
 import { ReportEntity } from '../model/report-entity';
 import { environment } from '../../../environments/environment';
 import { BaseService } from '../../shared/services/base.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
-export class reportService extends BaseService<ReportEntity> {
+export class ReportService extends BaseService<ReportEntity> {
 
-  constructor(http: HttpClient) {
-    super(http); // ✅ importante pasar el HttpClient al padre
-    this.resourceEndpoint = environment.reportEndpointPath;
+  protected override resourceEndpoint = `${environment.serverBaseUrl}${environment.reportEndpointPath}`;
+
+  constructor(protected override http: HttpClient) {
+    super(http);
   }
 
   getReports(): Observable<ReportEntity[]> {
@@ -28,7 +28,7 @@ export class reportService extends BaseService<ReportEntity> {
     description: string;
   }): Observable<any> {
     return this.http.post(
-      `${environment.serverBaseUrl}${this.resourceEndpoint}`,
+      this.resourceEndpoint,
       payload,
       this.getAuthHeaders()
     );

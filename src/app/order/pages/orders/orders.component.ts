@@ -19,7 +19,7 @@ import {OrderCardComponent} from '../../components/order-card/order-card.compone
 })
 export class OrdersComponent {
 
-  @ViewChild('orderCard') orderCardComponent!: OrderCardComponent;
+  @ViewChild('orderCard', { static: true }) orderCardComponent!: OrderCardComponent;
 
   onNewOrder() {
     if (this.orderCardComponent) {

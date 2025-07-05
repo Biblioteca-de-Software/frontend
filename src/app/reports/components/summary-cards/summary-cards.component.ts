@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgForOf } from '@angular/common';
 import { ReportEntity } from '../../model/report-entity';
-import { reportService } from '../../services/report.service';
+import { ReportService } from '../../services/report.service'; // Cambié la importación aquí
 
 @Component({
   selector: 'app-summary-cards',
@@ -21,7 +21,7 @@ export class SummaryCardsComponent implements OnInit {
     description: ''
   };
 
-  constructor(private reportService: reportService) { }
+  constructor(private reportService: ReportService) { } // Cambié 'reportService' a 'ReportService' aquí
 
   ngOnInit() {
     this.loadReports();
