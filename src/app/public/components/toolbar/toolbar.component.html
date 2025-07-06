@@ -28,9 +28,10 @@
     </ng-template>
   </mat-menu>
 
-  <button mat-icon-button>
+  <button mat-icon-button [routerLink]="['/pages/profile']">
     <mat-icon>account_circle</mat-icon>
   </button>
+
 
   <div class="auth-buttons">
     <button mat-raised-button color="accent" class="auth-btn register" routerLink="pages/login-owner">
