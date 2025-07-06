@@ -104,7 +104,6 @@ export class OrderFormComponent implements OnInit {
     return total;
   }
 
-
   submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -131,68 +130,48 @@ export class OrderFormComponent implements OnInit {
           return;
         }
 
-        const orderDishesPromises: Promise<any>[] = [];
-
-        this.items.value.forEach((item: any, index: number) => {
-          const dishId = item.dishId;
-          const quantity = item.quantity;
-
-          // Validación de datos antes de enviar al backend
-          if (!dishId || isNaN(dishId) || !quantity || isNaN(quantity)) {
-            console.warn(`❌ Datos inválidos en fila ${index}:`, item);
-            return; // Saltar este item
-          }
-
-          const dish = this.dishes.find(d => d.id === dishId);
-          if (!dish) {
-            console.warn(`❌ Plato con ID ${dishId} no encontrado`);
-            return;
-          }
-
-          const subtotal = dish.price * quantity;
-
-          orderDishesPromises.push(
-            new Promise((resolve, reject) => {
-              this.orderDishService.addDishToOrder(newOrderId, dishId, quantity).subscribe({
-                next: resolve,
-                error: (err) => {
-                  console.error(`❌ Error al agregar plato ${dish.name} (ID ${dishId}):`, err);
-                  reject(err);
-                }
-              });
-            })
-          );
-        });
-
-        // Esperar a que todos los platos se agreguen
-        // Ejecuta secuencialmente las peticiones en vez de en paralelo
+        // Ejecuta las peticiones una por una, en orden
         (async () => {
           try {
-            for (const item of this.items.value) {
-              const dishId = item.dishId;
-              const quantity = item.quantity;
-              if (!dishId || isNaN(dishId) || !quantity || isNaN(quantity)) continue;
+            for (const [index, item] of this.items.value.entries()) {
+              const dishId = +item.dishId;
+              const quantity = +item.quantity;
+
+              if (!dishId || isNaN(dishId) || !quantity || isNaN(quantity)) {
+                console.warn(`❌ Datos inválidos en fila ${index}:`, item);
+                continue;
+              }
+
+              const dish = this.dishes.find(d => d.id === dishId);
+              if (!dish) {
+                console.warn(`❌ Plato con ID ${dishId} no encontrado`);
+                continue;
+              }
 
               await this.orderDishService.addDishToOrder(newOrderId, dishId, quantity).toPromise();
+
             }
 
             console.log('✅ Orden y todos los platos agregados exitosamente.');
             this.form.setControl('items', this.fb.array([]));
             this.form.get('tableNumber')?.reset();
-            this.addDish();
+            this.addDish(); // Añade una nueva fila
             this.orderCreated.emit();
-          } catch (error) {
-            console.error('❌ Error al agregar uno o más platos a la orden:', error);
+
+          } catch (error: any) {
+            const failedDishId = error?.error?.dishId ?? '[desconocido]';
+            const failedDish = this.dishes.find(d => d.id === +failedDishId);
+            console.error(`❌ Error al agregar plato ${failedDish?.name ?? '[desconocido]'} (ID ${failedDishId}):`, error);
           }
         })();
-
-
       },
+
       error: (err) => {
         console.error('❌ Error al crear la orden principal:', err);
       }
     });
   }
+
 
 
 
