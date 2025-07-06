@@ -89,7 +89,9 @@ export class OrderFormComponent implements OnInit {
     let total = 0;
 
     this.items.controls.forEach(group => {
-      const dishId = group.get('dishId')?.value;
+      const rawDishId = group.get('dishId')?.value;
+      const dishId = typeof rawDishId === 'object' ? rawDishId?.id : +rawDishId;
+
       const quantity = group.get('quantity')?.value || 0;
 
       const dishSelected = this.dishes.find(d => d.id === dishId);
@@ -99,6 +101,7 @@ export class OrderFormComponent implements OnInit {
       } else {
         console.warn(`Plato con ID ${dishId} no encontrado o inválido`);
       }
+
     });
 
     return total;
@@ -134,7 +137,8 @@ export class OrderFormComponent implements OnInit {
         (async () => {
           try {
             for (const [index, item] of this.items.value.entries()) {
-              const dishId = +item.dishId;
+              const rawDishId = item.dishId;
+              const dishId = typeof rawDishId === 'object' ? rawDishId?.id : +rawDishId;
               const quantity = +item.quantity;
 
               if (!dishId || isNaN(dishId) || !quantity || isNaN(quantity)) {
@@ -149,8 +153,8 @@ export class OrderFormComponent implements OnInit {
               }
 
               await this.orderDishService.addDishToOrder(newOrderId, dishId, quantity).toPromise();
-
             }
+
 
             console.log('✅ Orden y todos los platos agregados exitosamente.');
             this.form.setControl('items', this.fb.array([]));
