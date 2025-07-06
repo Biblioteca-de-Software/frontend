@@ -36,8 +36,9 @@ export class OrderDishService extends BaseService<OrderDish> {
   addDishToOrder(orderId: number, dishId: number, quantity: number): Observable<any> {
     return this.http.post(
       `${environment.serverBaseUrl}/orders/order-summary/${orderId}`,
-      { dishId, quantity },
+      { dishId, quantity }, // ✅ camelCase exacto
       this.getAuthHeaders()
     );
   }
+
 }

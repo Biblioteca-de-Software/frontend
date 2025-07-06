@@ -52,6 +52,11 @@ export class OrderFormComponent implements OnInit {
     });
   }
 
+  compareDishById = (a: any, b: any): boolean => {
+    return a === b || +a === +b;
+  };
+
+
   ngOnInit(): void {
     this.loadDishes();
     this.addDish(); // Añade una fila por defecto para un plato
@@ -102,7 +107,6 @@ export class OrderFormComponent implements OnInit {
 
   submit() {
     if (this.form.invalid) {
-      // Marcar todos los campos como tocados para mostrar errores de validación si es necesario
       this.form.markAllAsTouched();
       return;
     }
@@ -112,73 +116,84 @@ export class OrderFormComponent implements OnInit {
       console.error('El total es NaN. Revisa la selección de platos.');
       return;
     }
-    const currentDate = new Date();
 
-    const tableNumber = Number(this.form.get('tableNumber')?.value); // ✅ Conversión segura
+    const tableNumber = Number(this.form.get('tableNumber')?.value);
+    const newOrderPayload = { tableNumber };
 
-    const newOrderPayload = {
-      tableNumber: tableNumber,
-    };
+    console.log('Payload enviado:', newOrderPayload);
 
-
-    console.log('Payload enviado:', newOrderPayload); // ✅ Revisa que sea correcto
-
-
-    // @ts-ignore
     this.orderService.createOrder(newOrderPayload).subscribe({
       next: (orderCreatedResponse: any) => {
-        const newOrderId = orderCreatedResponse.id; // Este es el ID generado por json-server
+        const newOrderId = orderCreatedResponse.id;
 
         if (newOrderId === undefined) {
-          console.error('Error: El ID de la orden creada es undefined. Revisa la respuesta de json-server.');
-          // Aquí podrías mostrar un mensaje de error al usuario
+          console.error('Error: El ID de la orden creada es undefined.');
           return;
         }
 
         const orderDishesPromises: Promise<any>[] = [];
 
-        this.items.value.forEach((item: any) => {
-          const dish = this.dishes.find(d => d.id === item.dishId);
-          if (dish) {
-            const subtotal = dish.price * item.quantity;
-            const orderDishPayload = new OrderDish({
-              order_id: newOrderId,
-              dish_id: item.dishId,
-              quantity: item.quantity,
-              subtotal: subtotal
-            });
-            // Agregamos la promesa del servicio create a un array
-            orderDishesPromises.push(
-              new Promise((resolve, reject) => {
-                this.orderDishService.addDishToOrder(newOrderId, item.dishId, item.quantity).subscribe({
-                  next: resolve,
-                  error: reject
-                });
-              })
-            );
+        this.items.value.forEach((item: any, index: number) => {
+          const dishId = item.dishId;
+          const quantity = item.quantity;
+
+          // Validación de datos antes de enviar al backend
+          if (!dishId || isNaN(dishId) || !quantity || isNaN(quantity)) {
+            console.warn(`❌ Datos inválidos en fila ${index}:`, item);
+            return; // Saltar este item
           }
+
+          const dish = this.dishes.find(d => d.id === dishId);
+          if (!dish) {
+            console.warn(`❌ Plato con ID ${dishId} no encontrado`);
+            return;
+          }
+
+          const subtotal = dish.price * quantity;
+
+          orderDishesPromises.push(
+            new Promise((resolve, reject) => {
+              this.orderDishService.addDishToOrder(newOrderId, dishId, quantity).subscribe({
+                next: resolve,
+                error: (err) => {
+                  console.error(`❌ Error al agregar plato ${dish.name} (ID ${dishId}):`, err);
+                  reject(err);
+                }
+              });
+            })
+          );
         });
 
-        // Esperar a que todos los 'order_dishes' se creen
-        Promise.all(orderDishesPromises).then(() => {
-          console.log('Orden y todos los platos de la orden creados exitosamente.');
-          this.form.setControl('items', this.fb.array([]));
-          this.form.get('tableNumber')?.reset();
-          this.addDish(); // Añadir una nueva fila vacía
-          // Añadir una fila vacía para la siguiente orden
-          this.orderCreated.emit(); // Emitir evento para notificar al componente padre
-        }).catch(error => {
-          console.error('Error al crear uno o más OrderDish:', error);
-          // Aquí podrías manejar el error, por ejemplo, intentando eliminar la orden creada si los platos fallan
-        });
+        // Esperar a que todos los platos se agreguen
+        // Ejecuta secuencialmente las peticiones en vez de en paralelo
+        (async () => {
+          try {
+            for (const item of this.items.value) {
+              const dishId = item.dishId;
+              const quantity = item.quantity;
+              if (!dishId || isNaN(dishId) || !quantity || isNaN(quantity)) continue;
+
+              await this.orderDishService.addDishToOrder(newOrderId, dishId, quantity).toPromise();
+            }
+
+            console.log('✅ Orden y todos los platos agregados exitosamente.');
+            this.form.setControl('items', this.fb.array([]));
+            this.form.get('tableNumber')?.reset();
+            this.addDish();
+            this.orderCreated.emit();
+          } catch (error) {
+            console.error('❌ Error al agregar uno o más platos a la orden:', error);
+          }
+        })();
+
 
       },
       error: (err) => {
-        console.error('Error al crear la orden principal:', err);
-        // Mostrar mensaje de error al usuario
+        console.error('❌ Error al crear la orden principal:', err);
       }
     });
   }
+
 
 
 }
