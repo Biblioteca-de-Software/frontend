@@ -23,6 +23,7 @@ import {SubscribeSuccessComponent} from './subscription/pages/subscribe-success/
 
 export const routes: Routes = [
 
+
   // RUTAS PÚBLICAS
   { path: 'pages/login-owner', loadComponent: LoginOwnerComponent },
   { path: 'pages/login-worker', loadComponent: LoginWorkerComponent },
