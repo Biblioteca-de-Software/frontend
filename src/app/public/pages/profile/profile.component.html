@@ -1,0 +1,67 @@
+
+
+
+
+
+<div class="profile-header">
+  <div class="avatar-wrapper" (click)="avatarInput.click()">
+    <img class="avatar" [src]="profile.imageUrl || 'https://i.postimg.cc/Twz0QpGR/blank-profile-picture-973460-640.webp'" alt="Avatar" />
+    <div class="overlay">Cambiar foto</div>
+    <input #avatarInput type="file" accept="image/*" (change)="onAvatarSelected($event)" hidden />
+  </div>
+  <h2 class="name">{{ profile.firstName }} {{ profile.lastName }}</h2>
+</div>
+
+<div class="profile-sections">
+  <div class="section">
+    <h3>Información básica</h3>
+    <mat-card>
+      <table>
+        <tr>
+          <td><strong>Nombre completo</strong></td>
+          <td>{{ profile.firstName }} {{ profile.lastName }}</td>
+        </tr>
+        <tr>
+          <td><strong>Email</strong></td>
+          <td>{{ profile.email }}</td>
+        </tr>
+        <tr>
+          <td><strong>Teléfono</strong></td>
+          <td>{{ profile.phoneNumber }}</td>
+        </tr>
+        <tr>
+          <td><strong>Fecha de nacimiento</strong></td>
+          <td>{{ profile.birthDate }}</td>
+        </tr>
+        <tr>
+          <td><strong>Contraseña</strong></td>
+          <td><a href="#">Cambiar contraseña</a></td>
+        </tr>
+      </table>
+    </mat-card>
+  </div>
+
+  <div class="section">
+    <h3>Configuración del sistema</h3>
+    <mat-card>
+      <table>
+        <tr>
+          <td><strong>Idioma</strong></td>
+          <td><a href="#">Español (España)</a></td>
+        </tr>
+        <tr>
+          <td><strong>Ajustes de privacidad</strong></td>
+          <td><a href="#">Solo los profesores pueden ver la información de mi perfil</a></td>
+        </tr>
+        <tr>
+          <td><strong>Notificaciones</strong></td>
+          <td>
+            <a href="#">Notificaciones de secuencias</a><br />
+            <a href="#">Notificaciones por correo electrónico</a><br />
+            <a href="#">Notificaciones emergentes</a>
+          </td>
+        </tr>
+      </table>
+    </mat-card>
+  </div>
+</div>
