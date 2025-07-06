@@ -16,6 +16,7 @@ export class DishService extends BaseService<Dish> {
     this.resourceEndpoint = dishResourceEndpointPath;
   }
 
+
   override getAll(): Observable<Dish[]> {
     return this.http.get<any[]>(
       `${environment.serverBaseUrl}${this.resourceEndpoint}`,
