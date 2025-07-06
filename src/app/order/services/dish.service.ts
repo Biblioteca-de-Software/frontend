@@ -11,15 +11,16 @@ const dishResourceEndpointPath = environment.dishesEndpointPath;
   providedIn: 'root'
 })
 export class DishService extends BaseService<Dish> {
-
   constructor(http: HttpClient) {
-    super(http); // ✅ IMPORTANTE
+    super(http);
     this.resourceEndpoint = dishResourceEndpointPath;
   }
 
-  public getAllDishes(): Observable<Dish[]> {
-    return this.http.get<any[]>(this.resourcePath(), this.getAuthHeaders()).pipe(
-      retry(2),
+  override getAll(): Observable<Dish[]> {
+    return this.http.get<any[]>(
+      `${environment.serverBaseUrl}${this.resourceEndpoint}`,
+      this.getAuthHeaders()
+    ).pipe(
       map(rawDishes => rawDishes.map(d => new Dish({
         id: d.dish_id,
         name: d.name,
@@ -28,4 +29,9 @@ export class DishService extends BaseService<Dish> {
       catchError(this.handleError)
     );
   }
+
+  public getAllDishes(): Observable<Dish[]> {
+    return this.getAll();
+  }
+
 }

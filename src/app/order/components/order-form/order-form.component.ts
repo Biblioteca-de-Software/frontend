@@ -117,11 +117,9 @@ export class OrderFormComponent implements OnInit {
     const tableNumber = Number(this.form.get('tableNumber')?.value); // ✅ Conversión segura
 
     const newOrderPayload = {
-      restaurant_id: 1,
-      table_number: tableNumber,
-      total: calculatedTotal,
-      createdAt: currentDate.toISOString()
+      tableNumber: tableNumber,
     };
+
 
     console.log('Payload enviado:', newOrderPayload); // ✅ Revisa que sea correcto
 
