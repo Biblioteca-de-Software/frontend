@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class RegisterOwnerService {
   private profileUrl = 'http://localhost:8080/api/v1/profiles';
   private currentUserId: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // Registrar nuevo usuario (Owner)
   addUser(userData: any): Observable<any> {
@@ -56,8 +57,10 @@ export class RegisterOwnerService {
   // Cerrar sesión: eliminar token e ID, redirigir si es necesario
   logout(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('onid'); // o 'workerId' si aplica
+    localStorage.removeItem('onid');
+    localStorage.removeItem('currentUser'); // También esto, si lo guardas
     this.currentUserId = null;
+    this.router.navigate(['/pages/login-owner']); // Redirige al login
   }
 
   // Verifica si el usuario está autenticado
