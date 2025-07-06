@@ -5,9 +5,11 @@ export const environment = {
   dishesEndpointPath: '/dishes',
   orderDishesEndpointPath: '/orders_dishes',
   serverBaseUrlNotification: '/notifications',
-  serverBaseUrlProducts: 'http://localhost:3000/api/v1/products',
+  serverBaseUrlProducts: 'http://localhost:8080/api/v1/products',
   reportProviderApiBaseUrl: '/api/reports',
-  orderSummaryEndpointPath: '/orders/order-summary',
-  reportEndpointPath: '/reports'
+  orderSummaryApiBaseUrl :'/orders/order-summary',
+  reportEndpointPath: '/reports',
+  serverBaseUrlSubscription: 'http://localhost:8080',
 
 };
+

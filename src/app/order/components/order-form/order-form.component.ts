@@ -52,6 +52,11 @@ export class OrderFormComponent implements OnInit {
     });
   }
 
+  compareDishById = (a: any, b: any): boolean => {
+    return a === b || +a === +b;
+  };
+
+
   ngOnInit(): void {
     this.loadDishes();
     this.addDish(); // Añade una fila por defecto para un plato
@@ -84,7 +89,9 @@ export class OrderFormComponent implements OnInit {
     let total = 0;
 
     this.items.controls.forEach(group => {
-      const dishId = group.get('dishId')?.value;
+      const rawDishId = group.get('dishId')?.value;
+      const dishId = typeof rawDishId === 'object' ? rawDishId?.id : +rawDishId;
+
       const quantity = group.get('quantity')?.value || 0;
 
       const dishSelected = this.dishes.find(d => d.id === dishId);
@@ -94,15 +101,14 @@ export class OrderFormComponent implements OnInit {
       } else {
         console.warn(`Plato con ID ${dishId} no encontrado o inválido`);
       }
+
     });
 
     return total;
   }
 
-
   submit() {
     if (this.form.invalid) {
-      // Marcar todos los campos como tocados para mostrar errores de validación si es necesario
       this.form.markAllAsTouched();
       return;
     }
@@ -112,75 +118,65 @@ export class OrderFormComponent implements OnInit {
       console.error('El total es NaN. Revisa la selección de platos.');
       return;
     }
-    const currentDate = new Date();
 
-    const tableNumber = Number(this.form.get('tableNumber')?.value); // ✅ Conversión segura
+    const tableNumber = Number(this.form.get('tableNumber')?.value);
+    const newOrderPayload = { tableNumber };
 
-    const newOrderPayload = {
-      restaurant_id: 1,
-      table_number: tableNumber,
-      total: calculatedTotal,
-      createdAt: currentDate.toISOString()
-    };
+    console.log('Payload enviado:', newOrderPayload);
 
-    console.log('Payload enviado:', newOrderPayload); // ✅ Revisa que sea correcto
-
-
-    // @ts-ignore
     this.orderService.createOrder(newOrderPayload).subscribe({
       next: (orderCreatedResponse: any) => {
-        const newOrderId = orderCreatedResponse.id; // Este es el ID generado por json-server
+        const newOrderId = orderCreatedResponse.id;
 
         if (newOrderId === undefined) {
-          console.error('Error: El ID de la orden creada es undefined. Revisa la respuesta de json-server.');
-          // Aquí podrías mostrar un mensaje de error al usuario
+          console.error('Error: El ID de la orden creada es undefined.');
           return;
         }
 
-        const orderDishesPromises: Promise<any>[] = [];
+        // Ejecuta las peticiones una por una, en orden
+        (async () => {
+          try {
+            for (const [index, item] of this.items.value.entries()) {
+              const rawDishId = item.dishId;
+              const dishId = typeof rawDishId === 'object' ? rawDishId?.id : +rawDishId;
+              const quantity = +item.quantity;
 
-        this.items.value.forEach((item: any) => {
-          const dish = this.dishes.find(d => d.id === item.dishId);
-          if (dish) {
-            const subtotal = dish.price * item.quantity;
-            const orderDishPayload = new OrderDish({
-              order_id: newOrderId,
-              dish_id: item.dishId,
-              quantity: item.quantity,
-              subtotal: subtotal
-            });
-            // Agregamos la promesa del servicio create a un array
-            orderDishesPromises.push(
-              new Promise((resolve, reject) => {
-                this.orderDishService.addDishToOrder(newOrderId, item.dishId, item.quantity).subscribe({
-                  next: resolve,
-                  error: reject
-                });
-              })
-            );
+              if (!dishId || isNaN(dishId) || !quantity || isNaN(quantity)) {
+                console.warn(`❌ Datos inválidos en fila ${index}:`, item);
+                continue;
+              }
+
+              const dish = this.dishes.find(d => d.id === dishId);
+              if (!dish) {
+                console.warn(`❌ Plato con ID ${dishId} no encontrado`);
+                continue;
+              }
+
+              await this.orderDishService.addDishToOrder(newOrderId, dishId, quantity).toPromise();
+            }
+
+
+            console.log('✅ Orden y todos los platos agregados exitosamente.');
+            this.form.setControl('items', this.fb.array([]));
+            this.form.get('tableNumber')?.reset();
+            this.addDish(); // Añade una nueva fila
+            this.orderCreated.emit();
+
+          } catch (error: any) {
+            const failedDishId = error?.error?.dishId ?? '[desconocido]';
+            const failedDish = this.dishes.find(d => d.id === +failedDishId);
+            console.error(`❌ Error al agregar plato ${failedDish?.name ?? '[desconocido]'} (ID ${failedDishId}):`, error);
           }
-        });
-
-        // Esperar a que todos los 'order_dishes' se creen
-        Promise.all(orderDishesPromises).then(() => {
-          console.log('Orden y todos los platos de la orden creados exitosamente.');
-          this.form.setControl('items', this.fb.array([]));
-          this.form.get('tableNumber')?.reset();
-          this.addDish(); // Añadir una nueva fila vacía
-          // Añadir una fila vacía para la siguiente orden
-          this.orderCreated.emit(); // Emitir evento para notificar al componente padre
-        }).catch(error => {
-          console.error('Error al crear uno o más OrderDish:', error);
-          // Aquí podrías manejar el error, por ejemplo, intentando eliminar la orden creada si los platos fallan
-        });
-
+        })();
       },
+
       error: (err) => {
-        console.error('Error al crear la orden principal:', err);
-        // Mostrar mensaje de error al usuario
+        console.error('❌ Error al crear la orden principal:', err);
       }
     });
   }
+
+
 
 
 }

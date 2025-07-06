@@ -13,13 +13,13 @@ const ordersResourceEndpointPath = environment.ordersEndpointPath;
 export class OrderService extends BaseService<Order> {
 
   constructor(http: HttpClient) {
-    super(http); // ✅ IMPORTANTE
+    super(http);
     this.resourceEndpoint = ordersResourceEndpointPath;
   }
 
   getProfitsPerDay(): Observable<{ day: string, profit: number }[]> {
     return this.http.get<Order[]>(
-      `${environment.serverBaseUrl}${ordersResourceEndpointPath}`,
+      `${environment.serverBaseUrl}${this.resourceEndpoint}`,
       this.getAuthHeaders()
     ).pipe(
       map((orders: Order[]) => {
@@ -41,15 +41,11 @@ export class OrderService extends BaseService<Order> {
     );
   }
 
-  createOrder(payload: {
-    table_number: number,
-    total: number,
-    createdAt: string
-  }): Observable<any> {
+  createOrder(payload: { tableNumber: number }): Observable<any> {
     return this.http.post(
       `${environment.serverBaseUrl}${this.resourceEndpoint}`,
       payload,
-      this.getAuthHeaders() // ✅ Usamos método del padre
+      this.getAuthHeaders()
     );
   }
 }

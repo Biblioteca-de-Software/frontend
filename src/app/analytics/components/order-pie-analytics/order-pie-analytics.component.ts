@@ -35,7 +35,7 @@ export class OrderPieAnalyticsComponent implements OnInit{
 
   loadChartData(): void {
     this.orderDishesService.getAll().subscribe(orderDishes => {
-      this.dishService.getAll().subscribe(dishes => {
+      this.dishService.getAllDishes().subscribe(dishes => {
         const salesMap = new Map<number, number>();
 
         for (let od of orderDishes) {

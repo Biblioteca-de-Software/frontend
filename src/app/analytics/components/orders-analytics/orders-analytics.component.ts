@@ -37,7 +37,7 @@ export class OrdersAnalyticsComponent implements OnInit {
     this.orderDishesService.getAll().subscribe(orderDishes => {
       console.log('orderDishes:', orderDishes);
 
-      this.dishService.getAll().subscribe(dishes => {
+      this.dishService.getAllDishes().subscribe(dishes => {
         console.log('dishes:', dishes);
 
         const salesMap = new Map<number, number>();

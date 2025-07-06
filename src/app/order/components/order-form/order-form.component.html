@@ -29,8 +29,7 @@
           <!-- Plato -->
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>{{ 'orderForm.DISH' | translate }}</mat-label>
-            <mat-select formControlName="dishId">
-              <mat-option [value]="null" disabled>{{ 'orderForm.SELECT_DISH' | translate }}</mat-option>
+            <mat-select formControlName="dishId" [compareWith]="compareDishById">
               <mat-option *ngFor="let dish of dishes" [value]="dish.id">
                 {{ dish.name }} (S/ {{ dish.price }})
               </mat-option>
@@ -59,6 +58,7 @@
 
         </div>
       </div>
+
 
       <!-- Botón agregar plato -->
       <button mat-raised-button type="button" class="add-btn" (click)="addDish()">
