@@ -10,7 +10,7 @@ export class ProfileService {
 
 
 
-  private profileUrl = 'http://localhost:8080/api/v1/profiles';
+  private profileUrl = 'https://keepitfresh-platform-yrav.onrender.com/api/v1/profiles';
 
   constructor(private http: HttpClient) {}
 

@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RegisterWorkerService {
-  private apiUrl = 'http://localhost:8080/api/v1/authentication';
-  private profileUrl = 'http://localhost:8080/api/v1/profiles';
+  private apiUrl = 'https://keepitfresh-platform-yrav.onrender.com/api/v1/authentication';
+  private profileUrl = 'https://keepitfresh-platform-yrav.onrender.com/api/v1/profiles';
   private currentUserId: number | null = null;
 
   constructor(private http: HttpClient) {}

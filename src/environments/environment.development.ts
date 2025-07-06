@@ -1,14 +1,14 @@
 export const environment = {
   production: false,
-  serverBaseUrl: 'http://localhost:8080/api/v1',
+  serverBaseUrl: 'https://keepitfresh-platform-yrav.onrender.com/api/v1',
   ordersEndpointPath: '/orders',
   dishesEndpointPath: '/dishes',
   orderDishesEndpointPath: '/orders_dishes',
   serverBaseUrlNotification: '/notifications',
-  serverBaseUrlProducts: 'http://localhost:8080/api/v1/products',
+  serverBaseUrlProducts: 'https://keepitfresh-platform-yrav.onrender.com/api/v1/products',
   reportProviderApiBaseUrl: '/api/reports',
   orderSummaryApiBaseUrl :'/orders/order-summary',
   reportEndpointPath: '/reports',
-  serverBaseUrlSubscription: 'http://localhost:8080',
-};
+  serverBaseUrlSubscription: 'https://keepitfresh-platform-yrav.onrender.com',
 
+};

@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
 
     const headers = new HttpHeaders({Authorization: `Bearer ${token}`});
 
-    this.http.get<any>('http://localhost:8080/api/v1/profiles', {headers}).subscribe({
+    this.http.get<any>('https://keepitfresh-platform-yrav.onrender.com/api/v1/profiles', {headers}).subscribe({
       next: (data) => {
         console.log('📦 Perfil recibido (data):', data);
         const profile = data[0];
