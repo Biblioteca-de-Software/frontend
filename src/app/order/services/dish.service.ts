@@ -24,11 +24,12 @@ export class DishService extends BaseService<Dish> {
       map(rawDishes => rawDishes.map(d => new Dish({
         id: d.dish_id,
         name: d.name,
-        price: d.price
+        price: d.price?.price // ✅ Extrae el valor numérico
       }))),
       catchError(this.handleError)
     );
   }
+
 
   public getAllDishes(): Observable<Dish[]> {
     return this.getAll();
